@@ -6,7 +6,7 @@
 #    By: asando <asando@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/19 13:48:49 by asando            #+#    #+#              #
-#    Updated: 2025/09/23 16:19:34 by asando           ###   ########.fr        #
+#    Updated: 2025/09/23 18:21:35 by asando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,22 +14,22 @@
 CC ?= cc
 DEBUG ?= 0
 BONUS ?= 0
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -Wunreachable-code -Ofast
 
 # library directory
-MINILIB_DIR := ./lib/minilibx-linux
+MLX42_DIR := ./lib/MLX42
 LIBFT_DIR := ./lib/libft
 
 # library Header
 HEADER := include
 LIBFT_HEADER := $(LIBFT_DIR)/includes
-MINILIB_HEADER := $(MINILIB_DIR)
-ALL_HEADER := -I$(HEADER) -I$(LIBFT_HEADER) -I$(MINILIB_HEADER)
+MLX42_HEADER := $(MLX42_DIR)/include
+ALL_HEADER := -I$(HEADER) -I$(LIBFT_HEADER) -I$(MLX42_HEADER)
 
 # library archive files
 LIBFT := $(LIBFT_DIR)/libft.a
-MINILIB_LIB := $(MINILIB_DIR)/libmlx_Linux.a
-MINILIB_LIBS := -lX11 -lXext -lm
+MLX42_LIB := $(MLX42_DIR)/build/libmlx42.a
+MLX42_LIBS := -ldl -lglfw -pthread -lm
 
 # fdf src files
 SRC_DIR := src
@@ -46,18 +46,20 @@ all: submodules $(NAME)
 
 #build execution file link all obj needed
 $(NAME): libmlx $(LIBFT) $(OBJS)
-	@$(CC) -o $@ $(OBJS) $(LIBFT) $(MINILIB_LIB) $(MINILIB_LIBS)
+	@$(CC) -o $@ $(OBJS) $(LIBFT) $(MLX42_LIB) $(MLX42_LIBS)
 
 #build mlx42 and compile mlx42
-libmlx: $(MINILIB_LIB)
+libmlx: $(MLX42_LIB)
 
-$(MINILIB_LIB):
-	@$(MAKE) --no-print-directory -C $(MINILIB_DIR)
-	@echo "Minilibx is compiled"
+$(MLX42_LIB):
+	@cmake $(MLX42_DIR) -B $(MLX42_DIR)/build
+	@cmake --build $(MLX42_DIR)/build -j4
+	@echo "libmlx42.a is compiled"
 
 #compile libft
 $(LIBFT):
 	@$(MAKE) --no-print-directory -C $(LIBFT_DIR)
+	@echo "libft.a is compiled"
 
 #compile src to obj
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
@@ -70,7 +72,7 @@ $(OBJ_DIR):
 
 submodules:
 	@if [ ! -f "$(LIBFT_DIR)/Makefile" ] || \
-		[ ! -f "$(MINILIB_DIR)/Makefile" ]; then \
+		[ ! -f "$(MLX42_DIR)/CMakeLists.txt" ]; then \
 		echo "Initializing Submodules..."; \
 		git submodule update --init --recursive; \
 	else \
@@ -78,16 +80,15 @@ submodules:
 	fi
 
 setup: submodules libmlx $(LIBFT)
-	@echo "Setting up Library"
+	@echo "Setting up Library..."
 
 clean:
 	@echo "Deleting Obj files..."
 	@rm -rf $(OBJ_DIR)
 	@echo "Obj files have been deleted"
-	@echo "Deleting Library obj files..."
+	@echo "Deleting libft obj files..."
 	@rm -rf $(LIBFT_DIR)/obj
-	@rm -rf $(MINILIB_DIR)/obj
-	@echo "Library obj files have been deleted"
+	@echo "libft obj files deleted"
 
 fclean: clean lib_clean
 	@echo "Deleting fdf execution file..."
@@ -97,8 +98,8 @@ fclean: clean lib_clean
 	@rm -rf $(LIBFT)
 	@echo "libft.a file has been deleted"
 	@echo "Deleting libmlx_Linux.a file..."
-	@rm -rf $(MINILIB_LIB)
-	@echo "libmlx_Linux.a file has been deleted"
+	@rm -rf $(MLX42_DIR)/build
+	@echo "MLX42/build folder has been deleted"
 
 re:
 	@$(MAKE) --no-print-directory flclean
