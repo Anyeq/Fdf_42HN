@@ -6,7 +6,7 @@
 #    By: asando <asando@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/19 13:48:49 by asando            #+#    #+#              #
-#    Updated: 2025/09/23 12:01:30 by asando           ###   ########.fr        #
+#    Updated: 2025/09/23 12:08:25 by asando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ all: submodules $(NAME)
 
 #build execution file link all obj needed
 $(NAME): libmlx $(LIBFT) $(OBJS)
-	@$(CC) -o $@ $^ $(MLX42_LIB) $(MLX42_LIBS)
+	@$(CC) -o $@ $(OBJS) $(LIBFT) $(MLX42_LIB) $(MLX42_LIBS)
 
 #build mlx42 and compile mlx42
 libmlx: $(MLX42_LIB)
@@ -66,7 +66,7 @@ $(OBJ_DIR):
 
 submodules:
 	@if [ ! -f "$(LIBFT_DIR)/Makefile" ] 
-	|| [ ! -f "$(MLX42_DIR)/CMakeLists.txt" ] then \
+	|| [ ! -f "$(MLX42_DIR)/CMakeLists.txt" ]; then \
 		echo "Initializing Submodules..."; \
 		git submodule update --init --recursive; \
 	else \
@@ -95,4 +95,4 @@ re:
 	@$(MAKE) --no-print-directory flclean
 	@$(MAKE) --no-print-directory all
 
-.PHONY: all clean fclean re setup
+.PHONY: all clean fclean re setup libmlx lib_clean submodules
