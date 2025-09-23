@@ -6,7 +6,7 @@
 #    By: asando <asando@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/19 13:48:49 by asando            #+#    #+#              #
-#    Updated: 2025/09/23 18:21:35 by asando           ###   ########.fr        #
+#    Updated: 2025/09/23 19:13:53 by asando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,7 @@ clean:
 	@rm -rf $(LIBFT_DIR)/obj
 	@echo "libft obj files deleted"
 
-fclean: clean lib_clean
+fclean: clean
 	@echo "Deleting fdf execution file..."
 	@rm -rf $(NAME)
 	@echo "Fdf execution file has been deleted"
