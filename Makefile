@@ -6,7 +6,7 @@
 #    By: asando <asando@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/19 13:48:49 by asando            #+#    #+#              #
-#    Updated: 2025/09/23 16:10:25 by asando           ###   ########.fr        #
+#    Updated: 2025/09/23 16:19:34 by asando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ ALL_HEADER := -I$(HEADER) -I$(LIBFT_HEADER) -I$(MINILIB_HEADER)
 # library archive files
 LIBFT := $(LIBFT_DIR)/libft.a
 MINILIB_LIB := $(MINILIB_DIR)/libmlx_Linux.a
-#MLX42_LIBS := -ldl -lglfw -lpthread -lm
+MINILIB_LIBS := -lX11 -lXext -lm
 
 # fdf src files
 SRC_DIR := src
@@ -46,7 +46,7 @@ all: submodules $(NAME)
 
 #build execution file link all obj needed
 $(NAME): libmlx $(LIBFT) $(OBJS)
-	@$(CC) -o $@ $(OBJS) $(LIBFT) $(MINILIB_LIB)
+	@$(CC) -o $@ $(OBJS) $(LIBFT) $(MINILIB_LIB) $(MINILIB_LIBS)
 
 #build mlx42 and compile mlx42
 libmlx: $(MINILIB_LIB)
