@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/09/19 14:06:19 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/19 14:11:04 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 
 # include <stdlib.h>
 # include <stdio.h>
+# include <stdbool.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
 # include "libft.h"
 # include "get_next_line_bonus.h"
+# include "MLX42.h"
 
 #endif
