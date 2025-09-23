@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:49:53 by asando            #+#    #+#             */
-/*   Updated: 2025/09/23 18:29:57 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/23 20:04:12 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,26 @@ static void ft_error(void)
 }
 
 // Print the window width and height.
-static void ft_hook(void* param)
-{
-	const mlx_t* mlx = param;
+//static void ft_hook(void* param)
+//{
+//	const mlx_t* mlx = param;
+//
+//
+//	printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
+//}
 
-	printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
+//static void ft_hook(void* param) {
+//    mlx_image_t* img = param;
+//    static int x = 0;
+//    mlx_put_pixel(img, x++, 100, 0x00FF00FF); // Draw a moving green pixel
+//}
+
+static void ft_hook(void* param) {
+    mlx_image_t* img = param;
+    static uint32_t x = 0;
+
+    if (x < img->width)
+        mlx_put_pixel(img, x++, 100, 0x00FF00FF);
 }
 
 int32_t	main(void)
@@ -51,7 +66,7 @@ int32_t	main(void)
 
 	// Register a hook and pass mlx as an optional param.
 	// NOTE: Do this before calling mlx_loop!
-	mlx_loop_hook(mlx, ft_hook, mlx);
+	mlx_loop_hook(mlx, ft_hook, img);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
