@@ -6,7 +6,7 @@
 #    By: asando <asando@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/19 13:48:49 by asando            #+#    #+#              #
-#    Updated: 2025/09/23 12:55:11 by asando           ###   ########.fr        #
+#    Updated: 2025/09/23 12:59:35 by asando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 CC ?= cc
 DEBUG ?= 0
 BONUS ?= 0
-CFLAGS := -Wall -Wextra -Werror -Wunreachable-code -0fast
+CFLAGS := -Wall -Wextra -Werror -Wunreachable-code -Ofast
 
 # library directory
 MLX42_DIR := ./lib/MLX42
