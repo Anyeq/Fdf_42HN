@@ -6,7 +6,7 @@
 #    By: asando <asando@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/19 13:48:49 by asando            #+#    #+#              #
-#    Updated: 2025/09/23 12:08:25 by asando           ###   ########.fr        #
+#    Updated: 2025/09/23 12:55:11 by asando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,10 @@ $(NAME): libmlx $(LIBFT) $(OBJS)
 
 #build mlx42 and compile mlx42
 libmlx: $(MLX42_LIB)
-	@cmake $(MLX42_DIR) -B $(MLX42_DIR)/build && make -C $(MLX42_DIR)/build -j4
+
+$(MLX42_LIB):
+	@cmake $(MLX42_DIR) -B $(MLX42_DIR)/build
+	@cmake --build $(MLX42_DIR)/build
 
 #compile libft
 $(LIBFT):
@@ -65,8 +68,8 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 submodules:
-	@if [ ! -f "$(LIBFT_DIR)/Makefile" ] 
-	|| [ ! -f "$(MLX42_DIR)/CMakeLists.txt" ]; then \
+	@if [ ! -f "$(LIBFT_DIR)/Makefile" ] || \
+		[ ! -f "$(MLX42_DIR)/CMakeLists.txt" ]; then \
 		echo "Initializing Submodules..."; \
 		git submodule update --init --recursive; \
 	else \
