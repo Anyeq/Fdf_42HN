@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   parse_doc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/09/24 20:32:06 by asando           ###   ########.fr       */
+/*   Created: 2025/09/24 19:40:08 by asando            #+#    #+#             */
+/*   Updated: 2025/09/24 19:44:36 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "fdf.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <stdbool.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <math.h>
-# include "libft.h"
-# include "get_next_line_bonus.h"
-# include "MLX42/MLX42.h"
-
-typedef struct	s_map_data
+int	parse_doc(char *file_name)
 {
-	int	x_size_map;
-	int	y_size_map;
-}	t_map_data;
-#endif
+	int	file_fd;
+
+	file_fd = open();
+	if (file_fd)
+	return (0);
+}
