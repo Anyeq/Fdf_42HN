@@ -6,7 +6,7 @@
 #    By: asando <asando@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/19 13:48:49 by asando            #+#    #+#              #
-#    Updated: 2025/09/23 19:13:53 by asando           ###   ########.fr        #
+#    Updated: 2025/09/25 15:56:22 by asando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,6 +97,9 @@ fclean: clean
 	@echo "Deleting libft.a file..."
 	@rm -rf $(LIBFT)
 	@echo "libft.a file has been deleted"
+	@echo "Deleting libftprintf.a file..."
+	@rm -rf $(LIBFT_DIR)/libftprintf.a
+	@echo "libftprintf.a file has been deleted"
 	@echo "Deleting libmlx_Linux.a file..."
 	@rm -rf $(MLX42_DIR)/build
 	@echo "MLX42/build folder has been deleted"

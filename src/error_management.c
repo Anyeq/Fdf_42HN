@@ -6,17 +6,16 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 19:57:23 by asando            #+#    #+#             */
-/*   Updated: 2025/09/24 20:23:40 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/25 13:28:19 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "fdf.h"
 
-static int	valid_nparameter(int n_arg)
+static void	valid_nparameter(int n_arg)
 {
 	if (n_arg != 2)
-		return (-1);
-	return (0);
+		exit(EXIT_FAILURE);
 }
 
 static int	valid_open_file(char *file_path)
@@ -25,8 +24,10 @@ static int	valid_open_file(char *file_path)
 
 	fd_file = open(file_path, O_RDONLY);
 	if (fd_file == -1)
-		//use exit with perror or strerror
-		return (-1);
+	{
+		perror("Error open file");
+		exit(EXIT_FAILURE);
+	}
 	return (fd_file);
 }
 
