@@ -6,20 +6,20 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 19:40:08 by asando            #+#    #+#             */
-/*   Updated: 2025/09/25 15:53:07 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/25 17:43:21 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static	void	deep_free(void *content)
+void	deep_free(void *content)
 {
 	char	**str_arr;
 	char	**curr;
 
 	str_arr = (char **)content;
 	curr = str_arr;
-	while(*curr)
+	while (*curr)
 	{
 		free(*curr);
 		curr++;
@@ -27,43 +27,64 @@ static	void	deep_free(void *content)
 	free(str_arr);
 }
 
-static int	store_line(t_list **raw_data, char **str_arr)
+static int	store_line(t_list **raw_data, char **str_arr, void (*del)(void *))
 {
 	t_list	*new_node;
+
 	new_node = ft_lstnew(str_arr);
 	if (new_node == NULL)
 	{
-		ft_lstclear(raw_data, deep_free);
+		ft_lstclear(raw_data, del);
 		return (-1);
 	}
 	ft_lstadd_back(raw_data, new_node);
 	return (0);
 }
 
-static int	**grab_element(t_list **raw_data)
+static int	*grab_column(char **str_arr, t_map_data *file_map)
+{
+	int		*result;
+	int		i;
+
+	i = 0;
+	file_map->column_size = 0;
+	while (str_arr[file_map->column_size])
+		file_map->column_size++;
+	result = malloc(file_map->column_size * sizeof(int));
+	if (result == NULL)
+		return (NULL);
+	while (i <= file_map->column_size)
+		result[i] = ft_atoi(str_arr[i++]);
+	return (result);
+}
+
+static int	**grab_element(t_list **raw_data, t_map_data *file_map)
 {
 	int		**map;
+	int		i;
 	t_list	*current;
-	int		n_column;
-	int		n_row;
 
-	map = malloc((ft_lstsize(*raw_data) + 1) * sizeof(int *));
+	file_map->row_size = ft_lstsize(*raw_data);
+	map = malloc(file_map->row_size * sizeof(int *));
+	i = 0;
 	if (map == NULL)
-	{
-		ft_lstclear(raw_data, deep_free);
-		perror("Error");
-		exit(EXIT_FAILURE);
-	}
+		return (NULL);
 	current = *raw_data;
 	while (current)
 	{
-		(char **)current->content
-		current++;
+		map[i++] = grab_column((char **)current->content);
+		if (map[i] == NULL)
+		{
+			clean_map(file_map, i);
+			return (NULL);
+		}
+		current = current->next;
 	}
-	return (0);
+	ft_lstclear(raw_data, deep_free);
+	return (map);
 }
 
-int	parse_file(int file_fd, int ***map_data)
+int	parse_file(int file_fd, t_map_data *file_map)
 {
 	char	*buff;
 	char	**line_element;
@@ -77,16 +98,15 @@ int	parse_file(int file_fd, int ***map_data)
 		line_element = ft_split(buff, ' ');
 		free(buff);
 		buff == NULL;
-		if (store_line(&raw_data_stack, line_element) == -1)
+		if (store_line(&raw_data_stack, line_element, deep_free) == -1)
 			break ;
 		buff = get_next_line(file_fd);
 	}
 	close(file_fd);
 	if (buff == NULL && raw_data_Stack == NULL)
-	{
-		perror("Error");
-		exit(EXIT_FAILURE);
-	}
-	*map_data = grab_element(&raw_data_stack);
+		return (-1);
+	file_map->z_map = grab_element(&raw_data_stack, file_map);
+	if (file_map->z_map == NULL)
+		exit_malloc_failed(&raw_data_stack, deep_free);
 	return (0);
 }

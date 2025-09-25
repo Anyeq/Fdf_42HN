@@ -1,38 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_management.c                                 :+:      :+:    :+:   */
+/*   fdf_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/24 19:57:23 by asando            #+#    #+#             */
-/*   Updated: 2025/09/25 17:45:57 by asando           ###   ########.fr       */
+/*   Created: 2025/09/25 16:56:40 by asando            #+#    #+#             */
+/*   Updated: 2025/09/25 17:31:41 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	valid_nparameter(int n_arg)
+void	clean_map(t_map_data *map, int n_deep)
 {
-	if (n_arg != 2)
-		exit(EXIT_FAILURE);
-}
+	int	i;
+	int	j;
 
-static int	valid_open_file(char *file_path)
-{
-	int	fd_file;
-
-	fd_file = open(file_path, O_RDONLY);
-	if (fd_file == -1)
+	i = 0;
+	while (i < n_deep)
 	{
-		perror("Error open file");
-		exit(EXIT_FAILURE);
+		j = 0;
+		while (j <= map->column_size)
+			free(map->z_map[i][j++]);
+		i++;
 	}
-	return (fd_file);
+	while (i <= map->row_size)
+		free(map->z_map[i]);
+	free(map->z_map);
+	return ;
 }
 
-void	error_check(int n_arg, char *file_path, int *fd_file)
+void	exit_malloc_failed(t_list **raw_data, void (*del)(void *))
 {
-	valid_nparameter(n_arg);
-	*fd_file = valid_open_file(file_path);
+	ft_lstclear(raw_data, del);
+	perror("Error");
+	exit(EXIT_FAILURE);
 }
