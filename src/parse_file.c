@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_doc.c                                        :+:      :+:    :+:   */
+/*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 19:40:08 by asando            #+#    #+#             */
-/*   Updated: 2025/09/25 17:43:21 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/25 18:00:12 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	**grab_element(t_list **raw_data, t_map_data *file_map)
 	current = *raw_data;
 	while (current)
 	{
-		map[i++] = grab_column((char **)current->content);
+		map[i++] = grab_column((char **)current->content, file_map);
 		if (map[i] == NULL)
 		{
 			clean_map(file_map, i);
@@ -97,16 +97,16 @@ int	parse_file(int file_fd, t_map_data *file_map)
 	{
 		line_element = ft_split(buff, ' ');
 		free(buff);
-		buff == NULL;
+		buff = NULL;
 		if (store_line(&raw_data_stack, line_element, deep_free) == -1)
 			break ;
 		buff = get_next_line(file_fd);
 	}
 	close(file_fd);
-	if (buff == NULL && raw_data_Stack == NULL)
+	if (buff == NULL && raw_data_stack == NULL)
 		return (-1);
-	file_map->z_map = grab_element(&raw_data_stack, file_map);
-	if (file_map->z_map == NULL)
+	file_map->z_data = grab_element(&raw_data_stack, file_map);
+	if (file_map->z_data == NULL)
 		exit_malloc_failed(&raw_data_stack, deep_free);
 	return (0);
 }
