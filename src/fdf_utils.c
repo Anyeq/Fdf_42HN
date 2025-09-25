@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 16:56:40 by asando            #+#    #+#             */
-/*   Updated: 2025/09/25 17:31:41 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/25 18:13:45 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,14 @@
 void	clean_map(t_map_data *map, int n_deep)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	while (i < n_deep)
 	{
-		j = 0;
-		while (j <= map->column_size)
-			free(map->z_map[i][j++]);
+		free(map->z_data[i]);
 		i++;
 	}
-	while (i <= map->row_size)
-		free(map->z_map[i]);
-	free(map->z_map);
+	free(map->z_data);
 	return ;
 }
 

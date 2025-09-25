@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 19:40:08 by asando            #+#    #+#             */
-/*   Updated: 2025/09/25 18:00:12 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/25 18:07:43 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,11 @@ static int	*grab_column(char **str_arr, t_map_data *file_map)
 	result = malloc(file_map->column_size * sizeof(int));
 	if (result == NULL)
 		return (NULL);
-	while (i <= file_map->column_size)
-		result[i] = ft_atoi(str_arr[i++]);
+	while (i < file_map->column_size)
+	{
+		result[i] = ft_atoi(str_arr[i]);
+		i++;
+	}
 	return (result);
 }
 

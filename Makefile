@@ -6,7 +6,7 @@
 #    By: asando <asando@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/19 13:48:49 by asando            #+#    #+#              #
-#    Updated: 2025/09/25 17:55:44 by asando           ###   ########.fr        #
+#    Updated: 2025/09/25 18:17:05 by asando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ $(MLX42_LIB):
 
 #compile libft
 $(LIBFT):
-	@$(MAKE) --no-print-directory -C $(LIBFT_DIR)
+	@$(MAKE) --no-print-directory bonus -C $(LIBFT_DIR)
 	@echo "libft.a is compiled"
 
 #compile src to obj
