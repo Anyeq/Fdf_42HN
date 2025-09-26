@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/09/25 17:52:03 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/26 08:48:54 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,18 @@
 # include "get_next_line_bonus.h"
 # include "MLX42/MLX42.h"
 
+typedef struct	s_point_data
+{
+	int				data;
+	bool			has_color;
+	uint32_t		color_data;
+}	t_point_data;
+
 typedef struct	s_map_data
 {
-	int	row_size;
-	int	column_size;
-	int	**z_data;
+	int				row_size;
+	int				column_size;
+	t_point_data	**z_data;
 }	t_map_data;
 
 //parsing function and utils

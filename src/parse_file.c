@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 19:40:08 by asando            #+#    #+#             */
-/*   Updated: 2025/09/26 08:24:16 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/26 09:14:41 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,22 @@ static int	store_line(t_list **raw_data, char **str_arr, void (*del)(void *))
 	return (0);
 }
 
-static int	*grab_column(char **str_arr, t_map_data *file_map)
+static void	grab_color_data(char *str, t_point_data *point)
+{
+	char *temp;
+
+	temp = ft_strchr(str, ',');
+	if (temp)
+	{
+		point->has_color = true;
+		point->color_data = ft_for_grabing(temp + 1);
+	}
+	else
+		point->has_color = false;
+	return ;
+}
+
+static t_point_data	*grab_column(char **str_arr, t_map_data *file_map)
 {
 	int		*result;
 	int		i;
@@ -51,25 +66,26 @@ static int	*grab_column(char **str_arr, t_map_data *file_map)
 	while (str_arr[file_map->column_size]
 		&& str_arr[file_map->column_size][0] != '\n')
 		file_map->column_size++;
-	result = malloc(file_map->column_size * sizeof(int));
+	result = malloc(file_map->column_size * sizeof(t_point_data));
 	if (result == NULL)
 		return (NULL);
 	while (i < file_map->column_size)
 	{
-		result[i] = ft_atoi(str_arr[i]);
+		grab_color_data(str_arr[i], &result[i]);
+		result[i].data = ft_atoi(str_arr[i]);
 		i++;
 	}
 	return (result);
 }
 
-static int	**grab_element(t_list **raw_data, t_map_data *file_map)
+static t_point_data	**grab_element(t_list **raw_data, t_map_data *file_map)
 {
 	int		**map;
 	int		i;
 	t_list	*current;
 
 	file_map->row_size = ft_lstsize(*raw_data);
-	map = malloc(file_map->row_size * sizeof(int *));
+	map = malloc(file_map->row_size * sizeof(t_point_data *));
 	i = 0;
 	if (map == NULL)
 		return (NULL);
