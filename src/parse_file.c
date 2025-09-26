@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 19:40:08 by asando            #+#    #+#             */
-/*   Updated: 2025/09/25 18:07:43 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/26 08:24:16 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static int	*grab_column(char **str_arr, t_map_data *file_map)
 
 	i = 0;
 	file_map->column_size = 0;
-	while (str_arr[file_map->column_size])
+	while (str_arr[file_map->column_size]
+		&& str_arr[file_map->column_size][0] != '\n')
 		file_map->column_size++;
 	result = malloc(file_map->column_size * sizeof(int));
 	if (result == NULL)
@@ -75,12 +76,13 @@ static int	**grab_element(t_list **raw_data, t_map_data *file_map)
 	current = *raw_data;
 	while (current)
 	{
-		map[i++] = grab_column((char **)current->content, file_map);
+		map[i] = grab_column((char **)current->content, file_map);
 		if (map[i] == NULL)
 		{
 			clean_map(file_map, i);
 			return (NULL);
 		}
+		i++;
 		current = current->next;
 	}
 	ft_lstclear(raw_data, deep_free);

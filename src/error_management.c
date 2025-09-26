@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 19:57:23 by asando            #+#    #+#             */
-/*   Updated: 2025/09/25 17:45:57 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/26 07:24:29 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 static void	valid_nparameter(int n_arg)
 {
 	if (n_arg != 2)
+	{
+		ft_putstr_fd("Need one file as a parameter", 2);
 		exit(EXIT_FAILURE);
+	}
 }
 
 static int	valid_open_file(char *file_path)
