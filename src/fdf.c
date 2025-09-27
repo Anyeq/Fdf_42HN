@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:49:53 by asando            #+#    #+#             */
-/*   Updated: 2025/09/26 08:32:40 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/27 20:37:07 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,13 @@
 //	{
 //		j = 0;
 //		while (j < file_map->column_size)
-//			printf("%d", file_map->z_data[i][j++]);
+//		{
+//			printf("%d", file_map->z_data[i][j].data);
+//			if (file_map->z_data[i][j].has_color == true)
+//				printf(",%X", file_map->z_data[i][j].color_data);
+//			printf(" ");
+//			j++;
+//		}
 //		printf("\n");
 //		i++;
 //	}

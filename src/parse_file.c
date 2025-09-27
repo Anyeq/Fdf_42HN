@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 19:40:08 by asando            #+#    #+#             */
-/*   Updated: 2025/09/27 18:27:52 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/27 19:02:08 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ static t_point_data	*grab_column(char **str_arr, t_map_data *file_map)
 
 static t_point_data	**grab_element(t_list **raw_data, t_map_data *file_map)
 {
-	int		**map;
-	int		i;
-	t_list	*current;
+	t_point_data	**map;
+	int				i;
+	t_list			*current;
 
 	file_map->row_size = ft_lstsize(*raw_data);
 	map = malloc(file_map->row_size * sizeof(t_point_data *));

@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/09/27 17:23:09 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/27 18:54:25 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct	s_map_data
 
 //parsing function and utils
 void	deep_free(void *content);
+void	grab_color_data(char *str, t_point_data *data);
 int		parse_file(int file_fd, t_map_data *file_map);
 
 //fdf_utils

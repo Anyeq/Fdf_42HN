@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:30:39 by asando            #+#    #+#             */
-/*   Updated: 2025/09/27 18:34:06 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/27 19:25:20 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,14 @@ void	grab_color_data(char *str, t_point_data *point)
 	temp = ft_strchr(str, ',');
 	if (temp)
 	{
-		user_color = ft_atohex(str);
+		user_color = ft_atohex(temp + 1);
 		if (user_color != 0)
 		{
 			point->has_color = true;
-			point->color_data = color_normalizer(user_color);
+			point->color_data = color_normalizer(temp + 1, user_color);
 		}
-		point->has_color = false;
+		else
+			point->has_color = false;
 	}
 	else
 		point->has_color = false;
