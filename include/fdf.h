@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/09/26 08:48:54 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/27 17:23:09 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include <stdint.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>

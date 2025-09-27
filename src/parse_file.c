@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 19:40:08 by asando            #+#    #+#             */
-/*   Updated: 2025/09/26 09:14:41 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/27 18:27:52 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,10 @@ static int	store_line(t_list **raw_data, char **str_arr, void (*del)(void *))
 	return (0);
 }
 
-static void	grab_color_data(char *str, t_point_data *point)
-{
-	char *temp;
-
-	temp = ft_strchr(str, ',');
-	if (temp)
-	{
-		point->has_color = true;
-		point->color_data = ft_for_grabing(temp + 1);
-	}
-	else
-		point->has_color = false;
-	return ;
-}
-
 static t_point_data	*grab_column(char **str_arr, t_map_data *file_map)
 {
-	int		*result;
-	int		i;
+	t_point_data	*result;
+	int				i;
 
 	i = 0;
 	file_map->column_size = 0;
