@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/09/29 14:01:31 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/29 18:46:22 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ typedef struct s_map_data
 
 typedef struct s_point_project
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	float	fx;
+	float	fy;
 }	t_point_project;
 
 typedef struct s_point_delta
@@ -53,6 +55,16 @@ typedef struct s_point_delta
 	int	stepx;
 	int	stepy;
 }	t_point_delta;
+
+typedef struct s_camera
+{
+	float	zoom;
+	float	angle;
+	float	elevation;
+	int		off_x;
+	int		off_y;
+
+} t_camera;
 
 //parsing function and utils
 void	deep_free(void *content);
