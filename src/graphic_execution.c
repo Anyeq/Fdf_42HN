@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 09:37:29 by asando            #+#    #+#             */
-/*   Updated: 2025/09/29 12:42:26 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/29 12:55:19 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,27 @@ static void	ft_draw_line(mlx_image_t *img, t_point_project p0,
 	return ;
 }
 
+static void	test_init_draw_line(t_point_project *p0, t_point_project *p1)
+{
+	p0->x = 0;
+	p0->y = 1;
+	p1->x = 100;
+	p1->y = 1;
+}
+
 void	graphic_exec(t_map_data *file_map)
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
+	t_point_project p0;
+	t_point_project p1;
+	uint32_t	color;
 
+	p0 = NULL;
+	p1 = NULL;
 	mlx = NULL;
 	img = NULL;
+	color = 0XFFFFFFFF;
 	mlx_set_setting(MLX_MAXIMIZED, true);
 	mlx = mlx_init(WIDTH, HEIGHT, "fdf viewer", true);
 	if (mlx == NULL)
@@ -90,7 +104,9 @@ void	graphic_exec(t_map_data *file_map)
 		mlx_terminate(mlx);
 		exit_error(file_map);
 	}
-	//do loop hook here
+	//do loop hook	
+	test_init_draw_line(&p0, &p1);
+	ft_draw_line(img, p0, p1, color);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 }

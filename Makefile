@@ -6,7 +6,7 @@
 #    By: asando <asando@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/19 13:48:49 by asando            #+#    #+#              #
-#    Updated: 2025/09/27 18:53:09 by asando           ###   ########.fr        #
+#    Updated: 2025/09/29 12:59:41 by asando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ MLX42_LIBS := -ldl -lglfw -pthread -lm
 
 # fdf src files
 SRC_DIR := src
-SRCS := fdf.c parse_file.c parse_file_utils.c error_management.c fdf_utils.c
+SRCS := fdf.c parse_file.c parse_file_utils.c error_management.c fdf_utils.c \
+		graphic_execution.c
 
 # fdf obj files
 OBJ_DIR := obj

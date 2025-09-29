@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/09/29 12:37:23 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/29 12:58:11 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,9 @@ void	exit_malloc_failed(t_list **raw_data, void (*del)(void *));
 
 //error management function
 void	error_check(int n_arg, char *file_path, int *fd_file);
+void	exit_error(t_map_data *file_map);
+
+//graphic management
+void	graphic_exec(t_map_data *file_map);
 
 #endif
