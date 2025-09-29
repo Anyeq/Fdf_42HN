@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 19:57:23 by asando            #+#    #+#             */
-/*   Updated: 2025/09/26 07:24:29 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/29 09:29:44 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,12 @@ void	error_check(int n_arg, char *file_path, int *fd_file)
 {
 	valid_nparameter(n_arg);
 	*fd_file = valid_open_file(file_path);
+}
+
+void	exit_error(t_map_data *file_map)
+{
+	clean_map(file_map, file_map->row_size);
+	perror("Error");
+	exit(EXIT_FAILURE);
+	return ;
 }
