@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 09:37:29 by asando            #+#    #+#             */
-/*   Updated: 2025/09/29 19:24:21 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/29 20:08:31 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,18 +102,18 @@ void	ft_draw_map(mlx_image_t *img, t_map_data *file_map)
 			p0 = ft_project(column, row, file_map->z_data[column][row]->data, cam);
 			if (column < file_map->column_size - 1)
 			{
-				p1 = ft_project(column + 1, row, file_map->z_data[column][row + 1]->data
+				p1 = ft_project(column + 1, row, file_map->z_data[row][column + 1]->data
 					, cam);
-				if (file_map->z_data[column][row + 1]->has_color)
-					color = file_map->z_data[column][row + 1]->color_data;
-            	ft_draw_line(img, p0, p1, file_map->z_data[column][row + 1]->color_data);
+				if (file_map->z_data[row][column + 1]->has_color)
+					color = file_map->z_data[row][column + 1]->color_data;
+            	ft_draw_line(img, p0, p1, color);
 			}
 			if (row < file_map->row_size - 1)
 			{
-        	    p1 = t_project(column, row + 1, file_map->z_data[column + 1][row]->data
+        	    p1 = ft_project(column, row + 1, file_map->z_data[row + 1][column]->data
 							, cam);
-				if (file_map->z_data[column + 1][row]->has_color)
-					color = file_map->z_data[column + 1][row]->color_data;
+				if (file_map->z_data[row + 1][column]->has_color)
+					color = file_map->z_data[row + 1][column]->color_data;
         	    ft_draw_line(img, p0, p1, color);
 			}
 			column++;
@@ -127,13 +127,10 @@ void	graphic_exec(t_map_data *file_map)
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img;
-	t_point_project	p0;
-	t_point_project	p1;
-	uint32_t		color;
+	t_app			app;
 
 	mlx = NULL;
 	img = NULL;
-	color = 0XFFFFFFFF;
 	mlx_set_setting(MLX_MAXIMIZED, true);
 	mlx = mlx_init(WIDTH, HEIGHT, "fdf viewer", true);
 	if (mlx == NULL)
@@ -144,11 +141,8 @@ void	graphic_exec(t_map_data *file_map)
 		mlx_terminate(mlx);
 		exit_error(file_map);
 	}
-	//do loop hook	
-	//draw_map
-	//loop hook
-	test_init_draw_line(&p0, &p1);
-	ft_draw_line(img, p0, p1, color);
+	//init_app(&app, mlx, img, file_map); initiate default camera and mouse value;
+	//register_hook(&app); all hook function would come here
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 }

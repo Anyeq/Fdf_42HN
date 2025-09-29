@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/09/29 18:46:22 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/29 20:01:58 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,23 @@ typedef struct s_camera
 	float	elevation;
 	int		off_x;
 	int		off_y;
-
 } t_camera;
+
+typedef struct t_mouse
+{
+	bool	drag;
+	int		last_x;
+	int		last_y;
+} t_mouse;
+
+typedef struct s_app
+{
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	t_map_data	*file_map;
+	t_camera	cam;
+	t_mouse		mouse;
+}	t_app;
 
 //parsing function and utils
 void	deep_free(void *content);
