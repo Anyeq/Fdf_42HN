@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 19:40:08 by asando            #+#    #+#             */
-/*   Updated: 2025/09/27 19:02:08 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/29 10:05:25 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	store_line(t_list **raw_data, char **str_arr, void (*del)(void *))
 static t_point_data	*grab_column(char **str_arr, t_map_data *file_map)
 {
 	t_point_data	*result;
-	int				i;
+	uint32_t		i;
 
 	i = 0;
 	file_map->column_size = 0;
@@ -66,7 +66,7 @@ static t_point_data	*grab_column(char **str_arr, t_map_data *file_map)
 static t_point_data	**grab_element(t_list **raw_data, t_map_data *file_map)
 {
 	t_point_data	**map;
-	int				i;
+	uint32_t		i;
 	t_list			*current;
 
 	file_map->row_size = ft_lstsize(*raw_data);

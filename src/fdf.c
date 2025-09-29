@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:49:53 by asando            #+#    #+#             */
-/*   Updated: 2025/09/29 09:30:23 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/29 09:37:59 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,6 @@
 //	}
 //	return ;
 //}
-
-static void	graphic_exec(t_map_data *file_map)
-{
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-
-	mlx = NULL;
-	img = NULL;
-	mlx_set_setting(MLX_MAXIMIZED, true);
-	mlx = mlx_init(WIDTH, HEIGHT, "fdf viewer", true);
-	if (mlx == NULL)
-		exit_error(file_map);
-	img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	if (img == NULL || mlx_image_to_window(mlx, img, 0, 0) < 0)
-	{
-		mlx_terminate(mlx);
-		exit_error(file_map);
-	}
-	//do loop hook here
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
-}
 
 int	main(int argc, char **argv)
 {

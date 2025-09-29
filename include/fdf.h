@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/09/27 18:54:25 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/29 12:37:23 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,24 @@ typedef struct	s_point_data
 
 typedef struct	s_map_data
 {
-	int				row_size;
-	int				column_size;
+	uint32_t		row_size;
+	uint32_t		column_size;
 	t_point_data	**z_data;
 }	t_map_data;
+
+typedef struct	s_point_project
+{
+	int	x;
+	int	y;
+}	t_point_project;
+
+typedef struct	s_point_delta
+{
+	int	dx;
+	int	dy;
+	int	stepx;
+	int	stepy;
+}	t_point_delta;
 
 //parsing function and utils
 void	deep_free(void *content);
@@ -44,7 +58,7 @@ void	grab_color_data(char *str, t_point_data *data);
 int		parse_file(int file_fd, t_map_data *file_map);
 
 //fdf_utils
-void	clean_map(t_map_data *map, int n_deep);
+void	clean_map(t_map_data *map, uint32_t n_deep);
 void	exit_malloc_failed(t_list **raw_data, void (*del)(void *));
 
 //error management function

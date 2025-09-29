@@ -6,15 +6,15 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 16:56:40 by asando            #+#    #+#             */
-/*   Updated: 2025/09/25 18:13:45 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/29 10:03:28 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	clean_map(t_map_data *map, int n_deep)
+void	clean_map(t_map_data *map, uint32_t n_deep)
 {
-	int	i;
+	uint32_t	i;
 
 	i = 0;
 	while (i < n_deep)
