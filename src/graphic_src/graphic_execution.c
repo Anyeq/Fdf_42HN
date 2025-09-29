@@ -6,13 +6,13 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 09:37:29 by asando            #+#    #+#             */
-/*   Updated: 2025/09/29 21:59:06 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/29 22:42:29 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_point_project	ft_project(int x, int y, int z, t_camera cam)
+static t_point_project	ft_project(int x, int y, int z, t_camera cam)
 {
 	t_point_project	p;
 
@@ -24,7 +24,7 @@ t_point_project	ft_project(int x, int y, int z, t_camera cam)
 	return (p);
 }
 
-void	ft_draw_topoint(int column, int row, t_point_project p0, t_app *app)
+static void	ft_draw_topoint(int column, int row, t_point_project p0, t_app *app)
 {
 	uint32_t		color;
 	t_point_project	p1;
@@ -49,7 +49,7 @@ void	ft_draw_topoint(int column, int row, t_point_project p0, t_app *app)
 	return ;
 }
 
-void	ft_draw_map(t_app *app);
+static void	ft_draw_map(t_app *app);
 {
 	int				row;
 	int				column;
@@ -74,21 +74,65 @@ void	ft_draw_map(t_app *app);
 	}
 }
 
-void	init_cam(t_app *app)
+static float	ft_cam_elevation(t_app *app)
 {
-	app->cam->zoom;
-	app->cam->angle;
-	app->cam->elevation;
-	app->cam->off_x;
-	app->cam->off_y;
+	int	z_min;
+	int	z_max;
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	z_min = 0;
+	z_max = 0;
+	while (i < app->file_map->row_size)
+	{
+		j = 0;
+		while (j < app->file_map->column_size)
+		{
+			if (app->file_map->z_data[i][j] < z_min)
+				z_min = app->file_map->z_data[i][j];
+			if (app->file_map->z_data[i][j] > z_max)
+				z_max = app->file_map->z_data[i][j];
+			j++;
+		}
+		i++;
+	}
+	if (z_max - z_min = 0)
+		return (1.0f);
+	return (app->cam->zoom / (z_max - z_min));
 }
 
-void	init_mouse(t_app *app)
+static void	init_cam(t_app *app)
 {
-	app->mouse->drag;
-	app->mouse->last_x;
-	app->mouse->last_y;
+	float	project_width;
+	float	project_hight;
+	float	angle_deg;
+	float	zoomx;
+	float	zoomy;
+
+	angle_deg = 30.0f;
+	app->cam->angle = angle_deg * (M_PI / 180.0f);
+	project_width = (app->mlx->width + app->mlx->height) * cos(app->cam->angle);
+	project_height = (app->mlx->width + app->mlx->height) * sin(app->cam->angle);
+	zoomx = app->mlx->width / project_width;
+	zoomy = app->mlx->height / project_height;
+	if (zoomx < zoomy)
+		app->cam->zoom = zoomx * 0.5;
+	else
+		app->cam->zoom = zoomy * 0.5;
+	app->cam->elevation = ft_cam_elevation(app);
+	app->cam->off_x = app->mlx->width / 2;
+	app->cam->off_y = app->mlx->height / 2;
+	return ;
 }
+
+//void	init_mouse(t_app *app)
+//{
+//	app->mouse->drag;
+//	app->mouse->last_x;
+//	app->mouse->last_y;
+//}
 
 void	graphic_exec(t_app *app)
 {
@@ -104,7 +148,8 @@ void	graphic_exec(t_app *app)
 		mlx_terminate(app->mlx);
 		exit_error(app->file_map);
 	}
-	//init_app(&app, mlx, img, file_map); initiate default camera and mouse value;
+	init_cam(app);
+	init_mouse(app);
 	//register_hook(&app); all hook function would come here
 	mlx_loop(app->mlx);
 	mlx_terminate(app->mlx);
