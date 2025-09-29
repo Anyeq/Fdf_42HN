@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:49:53 by asando            #+#    #+#             */
-/*   Updated: 2025/09/29 09:37:59 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/29 21:55:30 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,18 @@
 
 int	main(int argc, char **argv)
 {
-	int			file_fd;
-	t_map_data	file_map;
+	int		file_fd;
+	t_app	app;
 
 	file_fd = 0;
-	file_map.z_data = NULL;
+	app->file_map.z_data = NULL;
 	error_check(argc, argv[1], &file_fd);
-	if (parse_file(file_fd, &file_map) == -1)
+	if (parse_file(file_fd, app->file_map) == -1)
 	{
 		perror("Error");
 		exit(EXIT_FAILURE);
 	}
-	graphic_exec(&file_map);
-	clean_map(&file_map, file_map.row_size);
+	graphic_exec(&app);
+	clean_map(app->file_map, app->file_map->row_size);
 	return (0);
 }

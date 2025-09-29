@@ -6,9 +6,11 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 21:01:13 by asando            #+#    #+#             */
-/*   Updated: 2025/09/29 21:03:11 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/29 21:07:41 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "fdf.h"
 
 t_point_project	ft_project(int x, int y, int z, t_camera cam)
 {
