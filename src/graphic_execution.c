@@ -6,13 +6,13 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 09:37:29 by asando            #+#    #+#             */
-/*   Updated: 2025/09/29 12:55:19 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/29 13:58:42 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	ft_putpixel(mlx_image_t *img, uint32_t x, uint32_t y,
+void	ft_putpixel(mlx_image_t *img, uint32_t x, uint32_t y,
 						uint32_t color)
 {
 	uint32_t	pixel_index;
@@ -28,28 +28,26 @@ static void	ft_putpixel(mlx_image_t *img, uint32_t x, uint32_t y,
 	return ;
 }
 
-static int	modify_err_value(int err, t_delta_point delta, t_point_project *p0)
+static int	modify_err_value(int err, t_point_delta delta, t_point_project *p0)
 {
-	int result;
 	int	err2;
 
 	err2 = 2 * err;
-	result = 0;
 	if (err2 > -(delta.dy))
 	{
-		result = err - delta.dy;
+		err -= delta.dy;
 		p0->x += delta.stepx;
 	}
 	if (err2 < delta.dx)
 	{
-		result = err + delta.dx;
+		err += delta.dx;
 		p0->y += delta.stepy;
 	}
-	return (result);
+	return (err);
 }
 
-static void	ft_draw_line(mlx_image_t *img, t_point_project p0,
-						 t_point_project p1, uint32 color)
+void	ft_draw_line(mlx_image_t *img, t_point_project p0,
+						t_point_project p1, uint32_t color)
 {
 	t_point_delta	delta_point;
 	int				err;
@@ -75,22 +73,20 @@ static void	ft_draw_line(mlx_image_t *img, t_point_project p0,
 
 static void	test_init_draw_line(t_point_project *p0, t_point_project *p1)
 {
-	p0->x = 0;
-	p0->y = 1;
-	p1->x = 100;
-	p1->y = 1;
+	p0->x = 50;
+	p0->y = 50;
+	p1->x = 150;
+	p1->y = 200;
 }
 
 void	graphic_exec(t_map_data *file_map)
 {
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	t_point_project p0;
-	t_point_project p1;
-	uint32_t	color;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	t_point_project	p0;
+	t_point_project	p1;
+	uint32_t		color;
 
-	p0 = NULL;
-	p1 = NULL;
 	mlx = NULL;
 	img = NULL;
 	color = 0XFFFFFFFF;

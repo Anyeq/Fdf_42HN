@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/09/29 12:58:11 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/29 14:01:31 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,30 @@
 # include "libft.h"
 # include "get_next_line_bonus.h"
 # include "MLX42/MLX42.h"
+# define WIDTH 800
+# define HEIGHT 600
 
-typedef struct	s_point_data
+typedef struct s_point_data
 {
 	int				data;
 	bool			has_color;
 	uint32_t		color_data;
 }	t_point_data;
 
-typedef struct	s_map_data
+typedef struct s_map_data
 {
 	uint32_t		row_size;
 	uint32_t		column_size;
 	t_point_data	**z_data;
 }	t_map_data;
 
-typedef struct	s_point_project
+typedef struct s_point_project
 {
 	int	x;
 	int	y;
 }	t_point_project;
 
-typedef struct	s_point_delta
+typedef struct s_point_delta
 {
 	int	dx;
 	int	dy;
