@@ -6,7 +6,7 @@
 #    By: asando <asando@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/19 13:48:49 by asando            #+#    #+#              #
-#    Updated: 2025/09/29 12:59:41 by asando           ###   ########.fr        #
+#    Updated: 2025/09/30 09:03:21 by asando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,9 @@ MLX42_LIBS := -ldl -lglfw -pthread -lm
 
 # fdf src files
 SRC_DIR := src
+SRC_GRAPH_DIR := $(SRC_DIR)/graphic_src
 SRCS := fdf.c parse_file.c parse_file_utils.c error_management.c fdf_utils.c \
-		graphic_execution.c
+		graphic_execution.c graphic_execution_function.c
 
 # fdf obj files
 OBJ_DIR := obj
@@ -63,7 +64,9 @@ $(LIBFT):
 	@echo "libft.a is compiled"
 
 #compile src to obj
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+vpath %.c $(SRC_DIR)
+vpath %.c $(SRC_GRAPH_DIR)
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(ALL_HEADER) -c $< -o $@
 
 $(OBJ_DIR):

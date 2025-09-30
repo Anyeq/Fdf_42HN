@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 19:40:08 by asando            #+#    #+#             */
-/*   Updated: 2025/09/29 10:05:25 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/30 09:50:42 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,6 @@ int	parse_file(int file_fd, t_map_data *file_map)
 		return (-1);
 	file_map->z_data = grab_element(&raw_data_stack, file_map);
 	if (file_map->z_data == NULL)
-		exit_malloc_failed(&raw_data_stack, deep_free);
+		exit_malloc_failed(&raw_data_stack, deep_free, file_map);
 	return (0);
 }
