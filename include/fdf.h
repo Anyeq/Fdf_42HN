@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/09/30 15:05:32 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/30 20:13:53 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,10 @@ void	error_check(int n_arg, char *file_path, int *fd_file, t_map_data *file_map)
 void	exit_error(t_map_data *file_map);
 
 //graphic management
+void	ft_draw_map(t_app *app);
+void	handle_zoom(t_app *app, mlx_key_data_t keydata);
+void	handle_trans(t_app *app, mlx_key_data_t keydata);
+void	handle_essential(t_app *app, mlx_key_data_t keydata);
 void	init_cam(t_app *app);
 void	ft_draw_line(mlx_image_t *img, t_point_project p0,
 					t_point_project p1, uint32_t color);

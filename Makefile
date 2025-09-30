@@ -6,7 +6,7 @@
 #    By: asando <asando@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/19 13:48:49 by asando            #+#    #+#              #
-#    Updated: 2025/09/30 10:53:52 by asando           ###   ########.fr        #
+#    Updated: 2025/09/30 20:02:27 by asando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRC_DIR := src
 SRC_GRAPH_DIR := $(SRC_DIR)/graphic_src
 SRCS := fdf.c parse_file.c parse_file_utils.c error_management.c fdf_utils.c \
 		graphic_execution.c graphic_execution_function.c \
-		graphic_execution_utils.c
+		graphic_execution_utils.c graphic_execution_bonus.c
 
 # fdf obj files
 OBJ_DIR := obj

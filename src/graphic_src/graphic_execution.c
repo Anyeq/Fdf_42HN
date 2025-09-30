@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 09:37:29 by asando            #+#    #+#             */
-/*   Updated: 2025/09/30 18:54:19 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/30 20:13:27 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	ft_draw_topoint(uint32_t column, uint32_t row, t_point_project p0,
 	return ;
 }
 
-static void	ft_draw_map(t_app *app)
+void	ft_draw_map(t_app *app)
 {
 	uint32_t		row;
 	uint32_t		column;
@@ -80,26 +80,9 @@ void	handle_key(mlx_key_data_t keydata, void *param)
 	t_app	*app;
 
 	app = (t_app *)param;
-	if (keydata.action == MLX_PRESS)
-	{
-		if (keydata.key == MLX_KEY_KP_ADD || keydata.key == MLX_KEY_EQUAL)
-			app->cam.elevation *= 5.0f;
-		if (keydata.key == MLX_KEY_KP_SUBTRACT || keydata.key == MLX_KEY_MINUS)
-			app->cam.elevation *= 0.2f;
-		if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		{
-			mlx_close_window(app->mlx);
-			return ;
-		}
-		mlx_delete_image(app->mlx, app->img);
-		app->img = mlx_new_image(app->mlx, WIDTH, HEIGHT);
-		if (app->img == NULL || mlx_image_to_window(app->mlx, app->img, 0, 0) < 0)
-		{
-			mlx_terminate(app->mlx);
-			exit_error(app->file_map);
-		}
-		ft_draw_map(app);
-	}
+	handle_zoom(app, keydata);
+	handle_essential(app, keydata);
+	handle_trans(app, keydata);
 	return ;
 }
 
