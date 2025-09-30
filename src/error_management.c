@@ -6,19 +6,20 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 19:57:23 by asando            #+#    #+#             */
-/*   Updated: 2025/09/30 09:49:31 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/30 13:16:14 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	valid_nparameter(int n_arg)
+static int	valid_nparameter(int n_arg)
 {
 	if (n_arg != 2)
 	{
 		ft_putstr_fd("Need one file as a parameter", 2);
-		exit(EXIT_FAILURE);
+		return (-1);
 	}
+	return (0);
 }
 
 static int	valid_open_file(char *file_path)
@@ -27,17 +28,28 @@ static int	valid_open_file(char *file_path)
 
 	fd_file = open(file_path, O_RDONLY);
 	if (fd_file == -1)
-	{
 		perror("Error open file");
-		exit(EXIT_FAILURE);
-	}
 	return (fd_file);
 }
 
-void	error_check(int n_arg, char *file_path, int *fd_file)
+void	error_check(int n_arg, char *file_path, int *fd_file,
+				 t_map_data *file_map)
 {
-	valid_nparameter(n_arg);
-	*fd_file = valid_open_file(file_path);
+	*fd_file = 0;
+	if (valid_nparameter(n_arg) == 0)
+	{
+		*fd_file = valid_open_file(file_path);
+		if (*fd_file == -1)
+		{
+			free(file_map);
+			exit(EXIT_FAILURE);
+			return ;
+		}
+		return ;
+	}
+	free(file_map);
+	exit(EXIT_FAILURE);
+	return ;
 }
 
 void	exit_error(t_map_data *file_map)

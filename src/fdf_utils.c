@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 16:56:40 by asando            #+#    #+#             */
-/*   Updated: 2025/09/30 09:51:18 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/30 14:16:50 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	clean_map(t_map_data *map, uint32_t n_deep)
 		i++;
 	}
 	free(map->z_data);
+	free(map);
 	return ;
 }
 

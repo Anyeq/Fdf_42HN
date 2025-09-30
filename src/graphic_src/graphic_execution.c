@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 09:37:29 by asando            #+#    #+#             */
-/*   Updated: 2025/09/30 10:51:52 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/30 18:54:19 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ static void	ft_draw_map(t_app *app)
 	uint32_t		row;
 	uint32_t		column;
 	t_point_project	p0;
+	uint32_t		color;
 
 	row = 0;
 	column = 0;
+	color = 0XFFFFFFFF;
 	while (row < app->file_map->row_size)
 	{
 		column = 0;
@@ -65,6 +67,7 @@ static void	ft_draw_map(t_app *app)
 		{
 			p0 = ft_project((int)column, (int)row,
 					app->file_map->z_data[row][column].data, app->cam);
+			p0.color = color;
 			ft_draw_topoint(column, row, p0, app);
 			column++;
 		}
@@ -72,10 +75,36 @@ static void	ft_draw_map(t_app *app)
 	}
 }
 
+void	handle_key(mlx_key_data_t keydata, void *param)
+{
+	t_app	*app;
+
+	app = (t_app *)param;
+	if (keydata.action == MLX_PRESS)
+	{
+		if (keydata.key == MLX_KEY_KP_ADD || keydata.key == MLX_KEY_EQUAL)
+			app->cam.elevation *= 5.0f;
+		if (keydata.key == MLX_KEY_KP_SUBTRACT || keydata.key == MLX_KEY_MINUS)
+			app->cam.elevation *= 0.2f;
+		if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+		{
+			mlx_close_window(app->mlx);
+			return ;
+		}
+		mlx_delete_image(app->mlx, app->img);
+		app->img = mlx_new_image(app->mlx, WIDTH, HEIGHT);
+		if (app->img == NULL || mlx_image_to_window(app->mlx, app->img, 0, 0) < 0)
+		{
+			mlx_terminate(app->mlx);
+			exit_error(app->file_map);
+		}
+		ft_draw_map(app);
+	}
+	return ;
+}
+
 void	graphic_exec(t_app *app)
 {
-	app->mlx = NULL;
-	app->img = NULL;
 	mlx_set_setting(MLX_MAXIMIZED, true);
 	app->mlx = mlx_init(WIDTH, HEIGHT, "fdf viewer", true);
 	if (app->mlx == NULL)
@@ -88,6 +117,7 @@ void	graphic_exec(t_app *app)
 	}
 	init_cam(app);
 	ft_draw_map(app);
+	mlx_key_hook(app->mlx, handle_key, app);
 	//init_mouse(app);
 	//register_hook(&app); all hook function would come here
 	mlx_loop(app->mlx);

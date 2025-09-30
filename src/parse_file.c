@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 19:40:08 by asando            #+#    #+#             */
-/*   Updated: 2025/09/30 09:50:42 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/30 13:27:39 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int	parse_file(int file_fd, t_map_data *file_map)
 	t_list	*raw_data_stack;
 
 	buff = get_next_line(file_fd);
+	if (buff == NULL)
+		return (-2);
 	line_element = NULL;
 	raw_data_stack = NULL;
 	while (buff)

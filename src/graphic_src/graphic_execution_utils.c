@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 10:44:13 by asando            #+#    #+#             */
-/*   Updated: 2025/09/30 10:49:37 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/30 16:39:10 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static float	ft_cam_elevation(t_app *app)
 	}
 	if (z_max - z_min == 0)
 		return (1.0f);
-	return ((app->cam.zoom * 10) / (z_max - z_min));
+	return (app->cam.zoom / (z_max - z_min));
 }
 
 void	init_cam(t_app *app)
@@ -63,7 +63,7 @@ void	init_cam(t_app *app)
 		app->cam.zoom = zoomy * 0.5;
 	app->cam.elevation = ft_cam_elevation(app);
 	app->cam.off_x = app->mlx->width / 2;
-	app->cam.off_y = app->mlx->height / 2;
+	app->cam.off_y = app->mlx->height / 2 - (2 * zoomy);
 	return ;
 }
 

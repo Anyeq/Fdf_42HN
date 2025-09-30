@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/09/30 10:53:12 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/30 15:05:32 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ typedef struct s_map_data
 
 typedef struct s_point_project
 {
-	int		x;
-	int		y;
-	float	fx;
-	float	fy;
+	int			x;
+	int			y;
+	float		fx;
+	float		fy;
+	uint32_t	color;
 }	t_point_project;
 
 typedef struct s_point_delta
@@ -91,7 +92,7 @@ void	clean_map(t_map_data *map, uint32_t n_deep);
 void	exit_malloc_failed(t_list **raw_data, void (*del)(void *), t_map_data *file_map);
 
 //error management function
-void	error_check(int n_arg, char *file_path, int *fd_file);
+void	error_check(int n_arg, char *file_path, int *fd_file, t_map_data *file_map);
 void	exit_error(t_map_data *file_map);
 
 //graphic management

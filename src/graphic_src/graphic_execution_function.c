@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 21:04:23 by asando            #+#    #+#             */
-/*   Updated: 2025/09/30 10:25:46 by asando           ###   ########.fr       */
+/*   Updated: 2025/09/30 14:00:17 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void	ft_draw_line(mlx_image_t *img, t_point_project p0,
 		delta_point.stepy = -1;
 	while (1)
 	{
+		ft_putpixel(img, (uint32_t)p0.x, (uint32_t)p0.y, color);
 		if (p0.x == p1.x && p0.y == p1.y)
 			break ;
-		ft_putpixel(img, (uint32_t)p0.x, (uint32_t)p0.y, color);
 		err = modify_err_value(err, delta_point, &p0);
 	}
 	return ;
