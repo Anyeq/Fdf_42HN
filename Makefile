@@ -6,7 +6,7 @@
 #    By: asando <asando@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/19 13:48:49 by asando            #+#    #+#              #
-#    Updated: 2025/09/30 20:02:27 by asando           ###   ########.fr        #
+#    Updated: 2025/10/01 13:10:07 by asando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,16 +31,21 @@ LIBFT := $(LIBFT_DIR)/libft.a
 MLX42_LIB := $(MLX42_DIR)/build/libmlx42.a
 MLX42_LIBS := -ldl -lglfw -pthread -lm
 
-# fdf src files
+# fdf src directory
 SRC_DIR := src
 SRC_GRAPH_DIR := $(SRC_DIR)/graphic_src
-SRCS := fdf.c parse_file.c parse_file_utils.c error_management.c fdf_utils.c \
-		graphic_execution.c graphic_execution_function.c \
-		graphic_execution_utils.c graphic_execution_bonus.c
+SRC_PARSE_DIR := $(SRC_DIR)/parse_src
+
+# fdf src files
+PARSE_SRCS := parse_file.c parse_file_utils.c
+GRAPHIC_SRCS := graphic_execution.c graphic_execution_function.c \
+				graphic_execution_bonus.c graphic_execution_utils.c
+SRCS := fdf.c error_management.c
+ALL_SRCS := $(PARSE_SRCS) $(GRAPHIC_SRCS) $(SRCS)
 
 # fdf obj files
 OBJ_DIR := obj
-OBJS := $(SRCS:%.c=$(OBJ_DIR)/%.o)
+OBJS := $(ALL_SRCS:%.c=$(OBJ_DIR)/%.o)
 
 NAME := fdf
 
@@ -67,6 +72,7 @@ $(LIBFT):
 #compile src to obj
 vpath %.c $(SRC_DIR)
 vpath %.c $(SRC_GRAPH_DIR)
+vpath %.c $(SRC_PARSE_DIR)
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(ALL_HEADER) -c $< -o $@
 

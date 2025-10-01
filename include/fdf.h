@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/09/30 20:13:53 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/01 12:59:20 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,9 @@ void	grab_color_data(char *str, t_point_data *data);
 int		parse_file(int file_fd, t_map_data *file_map);
 
 //fdf_utils
+void	error_check(int n_arg, char *file_path, int *fd_file, t_map_data *file_map);
 void	clean_map(t_map_data *map, uint32_t n_deep);
 void	exit_malloc_failed(t_list **raw_data, void (*del)(void *), t_map_data *file_map);
-
-//error management function
-void	error_check(int n_arg, char *file_path, int *fd_file, t_map_data *file_map);
 void	exit_error(t_map_data *file_map);
 
 //graphic management
