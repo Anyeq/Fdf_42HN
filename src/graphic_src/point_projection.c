@@ -1,13 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_key.c                                       :+:      :+:    :+:   */
+/*   point_projection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/30 18:59:35 by asando            #+#    #+#             */
-/*   Updated: 2025/09/30 18:59:37 by asando           ###   ########.fr       */
+/*   Created: 2025/10/01 13:45:07 by asando            #+#    #+#             */
+/*   Updated: 2025/10/01 13:46:11 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "fdf.h"
 
+t_point_project	ft_project(int x, int y, int z, t_camera cam)
+{
+	t_point_project	p;
+
+	p.fx = (x - y) * cos(cam.angle) * cam.zoom + cam.off_x;
+	p.fy = (x + y) * sin(cam.angle) * cam.zoom - (z * cam.elevation)
+		+ cam.off_y;
+	p.x = (int)(p.fx);
+	p.y = (int)(p.fy);
+	return (p);
+}

@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 10:44:13 by asando            #+#    #+#             */
-/*   Updated: 2025/09/30 16:39:10 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/01 13:43:19 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,3 @@ void	init_cam(t_app *app)
 	app->cam.off_y = app->mlx->height / 2 - (2 * zoomy);
 	return ;
 }
-
-//void	init_mouse(t_app *app)
-//{
-//	app->mouse->drag;
-//	app->mouse->last_x;
-//	app->mouse->last_y;
-//}

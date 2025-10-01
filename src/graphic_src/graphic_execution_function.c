@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 21:04:23 by asando            #+#    #+#             */
-/*   Updated: 2025/09/30 14:00:17 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/01 13:42:39 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	modify_err_value(int err, t_point_delta delta, t_point_project *p0)
 	return (err);
 }
 
-void	ft_draw_line(mlx_image_t *img, t_point_project p0,
+static void	ft_draw_line(mlx_image_t *img, t_point_project p0,
 						t_point_project p1, uint32_t color)
 {
 	t_point_delta	delta_point;
@@ -69,4 +69,55 @@ void	ft_draw_line(mlx_image_t *img, t_point_project p0,
 		err = modify_err_value(err, delta_point, &p0);
 	}
 	return ;
+}
+
+static void	ft_draw_topoint(uint32_t column, uint32_t row, t_point_project p0,
+							t_app *app)
+{
+	uint32_t		color;
+	t_point_project	p1;
+
+	color = 0XFFFFFFFF;
+	if (column < app->file_map->column_size - 1)
+	{
+		p1 = ft_project((int)(column + 1), (int)row,
+				app->file_map->z_data[row][column + 1].data, app->cam);
+		if (app->file_map->z_data[row][column + 1].has_color)
+			color = app->file_map->z_data[row][column + 1].color_data;
+		ft_draw_line(app->img, p0, p1, color);
+	}
+	if (row < app->file_map->row_size - 1)
+	{
+		p1 = ft_project((int)column, (int)(row + 1),
+				app->file_map->z_data[row + 1][column].data, app->cam);
+		if (app->file_map->z_data[row + 1][column].has_color)
+			color = app->file_map->z_data[row + 1][column].color_data;
+		ft_draw_line(app->img, p0, p1, color);
+	}
+	return ;
+}
+
+void	ft_draw_map(t_app *app)
+{
+	uint32_t		row;
+	uint32_t		column;
+	t_point_project	p0;
+	uint32_t		color;
+
+	row = 0;
+	column = 0;
+	color = 0XFFFFFFFF;
+	while (row < app->file_map->row_size)
+	{
+		column = 0;
+		while (column < app->file_map->column_size)
+		{
+			p0 = ft_project((int)column, (int)row,
+					app->file_map->z_data[row][column].data, app->cam);
+			p0.color = color;
+			ft_draw_topoint(column, row, p0, app);
+			column++;
+		}
+		row++;
+	}
 }

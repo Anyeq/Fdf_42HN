@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:49:53 by asando            #+#    #+#             */
-/*   Updated: 2025/10/01 12:57:05 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/01 13:47:35 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,28 @@ void	clean_map(t_map_data *map, uint32_t n_deep)
 	free(map->z_data);
 	free(map);
 	return ;
+}
+
+void	graphic_exec(t_app *app)
+{
+	mlx_set_setting(MLX_MAXIMIZED, true);
+	app->mlx = mlx_init(WIDTH, HEIGHT, "fdf viewer", true);
+	if (app->mlx == NULL)
+		exit_error(app->file_map);
+	app->img = mlx_new_image(app->mlx, WIDTH, HEIGHT);
+	if (app->img == NULL || mlx_image_to_window(app->mlx, app->img, 0, 0) < 0)
+	{
+		mlx_terminate(app->mlx);
+		exit_error(app->file_map);
+	}
+	init_cam(app);
+	ft_draw_map(app);
+	mlx_resize_hook(app->mlx, handle_resize, app);
+	mlx_key_hook(app->mlx, handle_key, app);
+	//init_mouse(app);
+	//register_hook(&app); all hook function would come here
+	mlx_loop(app->mlx);
+	mlx_terminate(app->mlx);
 }
 
 int	main(int argc, char **argv)
