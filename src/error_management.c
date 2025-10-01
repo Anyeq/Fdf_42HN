@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 19:57:23 by asando            #+#    #+#             */
-/*   Updated: 2025/09/30 13:16:14 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/01 12:56:05 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,13 @@ void	exit_error(t_map_data *file_map)
 	perror("Error");
 	exit(EXIT_FAILURE);
 	return ;
+}
+
+void	exit_malloc_failed(t_list **raw_data, void (*del)(void *),
+						t_map_data *file_map)
+{
+	ft_lstclear(raw_data, del);
+	free(file_map);
+	perror("Error");
+	exit(EXIT_FAILURE);
 }
