@@ -6,43 +6,13 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:49:53 by asando            #+#    #+#             */
-/*   Updated: 2025/10/01 13:47:35 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/01 14:21:50 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	init_app(t_app *app)
-{
-	t_map_data	*map;
-
-	map = malloc(sizeof(t_map_data) * 1);
-	if (map == NULL)
-	{
-		perror("Error");
-		exit(EXIT_FAILURE);
-	}
-	app->mlx = NULL;
-	app->img = NULL;
-	app->file_map = map;
-}
-
-void	clean_map(t_map_data *map, uint32_t n_deep)
-{
-	uint32_t	i;
-
-	i = 0;
-	while (i < n_deep)
-	{
-		free(map->z_data[i]);
-		i++;
-	}
-	free(map->z_data);
-	free(map);
-	return ;
-}
-
-void	graphic_exec(t_app *app)
+static void	graphic_exec(t_app *app)
 {
 	mlx_set_setting(MLX_MAXIMIZED, true);
 	app->mlx = mlx_init(WIDTH, HEIGHT, "fdf viewer", true);

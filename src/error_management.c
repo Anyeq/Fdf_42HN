@@ -6,49 +6,44 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 19:57:23 by asando            #+#    #+#             */
-/*   Updated: 2025/10/01 12:56:05 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/01 14:24:20 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	valid_nparameter(int n_arg)
+void	error_check(int n_arg, char *file_path, int *fd_file,
+				 t_map_data *file_map)
 {
 	if (n_arg != 2)
 	{
 		ft_putstr_fd("Need one file as a parameter", 2);
-		return (-1);
+		free(file_map);
+		exit(EXIT_FAILURE);
 	}
-	return (0);
-}
-
-static int	valid_open_file(char *file_path)
-{
-	int	fd_file;
-
-	fd_file = open(file_path, O_RDONLY);
-	if (fd_file == -1)
+	*fd_file = open(file_path, O_RDONLY);
+	if (*fd_file == -1)
 		perror("Error open file");
-	return (fd_file);
+	if (*fd_file == -1)
+	{
+		free(file_map);
+		exit(EXIT_FAILURE);
+	}
+	return ;
 }
 
-void	error_check(int n_arg, char *file_path, int *fd_file,
-				 t_map_data *file_map)
+void	clean_map(t_map_data *map, uint32_t n_deep)
 {
-	*fd_file = 0;
-	if (valid_nparameter(n_arg) == 0)
+	uint32_t	i;
+
+	i = 0;
+	while (i < n_deep)
 	{
-		*fd_file = valid_open_file(file_path);
-		if (*fd_file == -1)
-		{
-			free(file_map);
-			exit(EXIT_FAILURE);
-			return ;
-		}
-		return ;
+		free(map->z_data[i]);
+		i++;
 	}
-	free(file_map);
-	exit(EXIT_FAILURE);
+	free(map->z_data);
+	free(map);
 	return ;
 }
 

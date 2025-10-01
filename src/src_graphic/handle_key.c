@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_essential_key.c                             :+:      :+:    :+:   */
+/*   handle_key.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 21:01:13 by asando            #+#    #+#             */
-/*   Updated: 2025/10/01 13:38:38 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/01 14:23:26 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	redraw_img(t_app *app)
+static void	redraw_img(t_app *app)
 {
 	mlx_delete_image(app->mlx, app->img);
 	app->img = NULL;
@@ -45,8 +45,11 @@ static void	handle_essential(t_app *app, mlx_key_data_t keydata)
 	return ;
 }
 
-void	handle_resize(uint32_t width, uint32_t height, t_app *app)
+void	handle_resize(int32_t width, int32_t height, void *param)
 {
+	t_app	*app;
+
+	app = (t_app *)param;
 	mlx_delete_image(app->mlx, app->img);
 	app->img = NULL;
 	app->img = mlx_new_image(app->mlx, width, height);
@@ -55,8 +58,8 @@ void	handle_resize(uint32_t width, uint32_t height, t_app *app)
 		mlx_terminate(app->mlx);
 		exit_error(app->file_map);
 	}
-	app->camera.off_x = widht / 2;
-	app->camera.off_y = height / 2;
+	app->cam.off_x = width / 2;
+	app->cam.off_y = height / 2;
 	ft_draw_map(app);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/10/01 12:59:20 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/01 14:22:31 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,15 @@ void	clean_map(t_map_data *map, uint32_t n_deep);
 void	exit_malloc_failed(t_list **raw_data, void (*del)(void *), t_map_data *file_map);
 void	exit_error(t_map_data *file_map);
 
+//hook handle function
+//void	handle_zoom(t_app *app, mlx_key_data_t keydata);
+//void	handle_trans(t_app *app, mlx_key_data_t keydata);
+void	handle_key(mlx_key_data_t keydata, void *param);
+void	handle_resize(int32_t width, int32_t height, void *param);
+
 //graphic management
-void	ft_draw_map(t_app *app);
-void	handle_zoom(t_app *app, mlx_key_data_t keydata);
-void	handle_trans(t_app *app, mlx_key_data_t keydata);
-void	handle_essential(t_app *app, mlx_key_data_t keydata);
-void	init_cam(t_app *app);
-void	ft_draw_line(mlx_image_t *img, t_point_project p0,
-					t_point_project p1, uint32_t color);
-void	graphic_exec(t_app *app);
+t_point_project	ft_project(int x, int y, int z, t_camera cam);
+void			init_app(t_app *app);
+void			init_cam(t_app *app);
+void			ft_draw_map(t_app *app);
 #endif

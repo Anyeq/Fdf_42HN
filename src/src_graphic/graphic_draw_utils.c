@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graphic_execution_utils.c                          :+:      :+:    :+:   */
+/*   graphic_draw_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 10:44:13 by asando            #+#    #+#             */
-/*   Updated: 2025/10/01 13:43:19 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/01 14:08:44 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,21 @@ static float	ft_cam_elevation(t_app *app)
 	if (z_max - z_min == 0)
 		return (1.0f);
 	return (app->cam.zoom / (z_max - z_min));
+}
+
+void	init_app(t_app *app)
+{
+	t_map_data	*map;
+
+	map = malloc(sizeof(t_map_data) * 1);
+	if (map == NULL)
+	{
+		perror("Error");
+		exit(EXIT_FAILURE);
+	}
+	app->mlx = NULL;
+	app->img = NULL;
+	app->file_map = map;
 }
 
 void	init_cam(t_app *app)
