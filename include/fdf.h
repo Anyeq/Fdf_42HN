@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/10/01 14:22:31 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/01 15:33:43 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,17 @@ void	clean_map(t_map_data *map, uint32_t n_deep);
 void	exit_malloc_failed(t_list **raw_data, void (*del)(void *), t_map_data *file_map);
 void	exit_error(t_map_data *file_map);
 
-//hook handle function
-//void	handle_zoom(t_app *app, mlx_key_data_t keydata);
-//void	handle_trans(t_app *app, mlx_key_data_t keydata);
-void	handle_key(mlx_key_data_t keydata, void *param);
+//bonus
+# ifdef BONUS_MODE
+	void	handle_zoom(t_app *app, mlx_key_data_t keydata);
+	void	handle_trans(t_app *app, mlx_key_data_t keydata);
+# endif
+void	handle_essential(t_app *app, mlx_key_data_t keydata);
 void	handle_resize(int32_t width, int32_t height, void *param);
+void	handle_key(mlx_key_data_t keydata, void *param);
 
 //graphic management
+void			redraw_img(t_app *app);
 t_point_project	ft_project(int x, int y, int z, t_camera cam);
 void			init_app(t_app *app);
 void			init_cam(t_app *app);

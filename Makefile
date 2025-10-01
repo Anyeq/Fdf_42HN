@@ -6,7 +6,7 @@
 #    By: asando <asando@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/19 13:48:49 by asando            #+#    #+#              #
-#    Updated: 2025/10/01 14:10:15 by asando           ###   ########.fr        #
+#    Updated: 2025/10/01 16:15:59 by asando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@
 CC ?= cc
 DEBUG ?= 0
 BONUS ?= 0
-CFLAGS := -Wall -Wextra -Werror -Wunreachable-code -Ofast
+CFLAGS = -Wall -Wextra -Werror -Wunreachable-code -Ofast
+BONUS_FLAG = -DBONUS_MODE
 
 # library directory
 MLX42_DIR := ./lib/MLX42
@@ -35,15 +36,20 @@ MLX42_LIBS := -ldl -lglfw -pthread -lm
 SRC_DIR := src
 SRC_GRAPH_DIR := $(SRC_DIR)/src_graphic
 SRC_PARSE_DIR := $(SRC_DIR)/src_parse
-#SRC_BONUS_DIR := $(SRC_DIR)/src_bonus
+SRC_BONUS_DIR := $(SRC_DIR)/src_bonus
 
 # fdf src files
+SHARED_SRCS = handle_key_execution.c
+ifeq ($(BONUS), 1)
+	BONUS_SRCS = handle_key_bonus.c
+	SHARED_SRCS = handle_key_execution_bonus.c
+	CFLAGS += $(BONUS_FLAG)
+endif
 PARSE_SRCS := parse_file.c parse_file_utils.c
-#BONUS_SRCS := handle_key_bonus.c
 GRAPHIC_SRCS := graphic_draw.c graphic_draw_utils.c \
 				point_projection.c handle_key.c
 SRCS := fdf.c error_management.c
-ALL_SRCS := $(PARSE_SRCS) $(GRAPHIC_SRCS) $(SRCS)
+ALL_SRCS := $(SRCS) $(PARSE_SRCS) $(SHARED_SRCS) $(GRAPHIC_SRCS) $(BONUS_SRCS) 
 
 # fdf obj files
 OBJ_DIR := obj
@@ -55,7 +61,7 @@ all: submodules $(NAME)
 	@echo "Execution file is created"
 
 #build execution file link all obj needed
-$(NAME): libmlx $(LIBFT) $(OBJS)
+$(NAME): libmlx libft_setup $(OBJS)
 	@$(CC) -o $@ $(OBJS) $(LIBFT) $(MLX42_LIB) $(MLX42_LIBS)
 
 #build mlx42 and compile mlx42
@@ -67,6 +73,8 @@ $(MLX42_LIB):
 	@echo "libmlx42.a is compiled"
 
 #compile libft
+libft_setup: $(LIBFT)
+
 $(LIBFT):
 	@$(MAKE) --no-print-directory bonus -C $(LIBFT_DIR)
 	@echo "libft.a is compiled"
@@ -75,7 +83,7 @@ $(LIBFT):
 vpath %.c $(SRC_DIR)
 vpath %.c $(SRC_GRAPH_DIR)
 vpath %.c $(SRC_PARSE_DIR)
-#vpath %.c $(SRC_BONUS_DIR)
+vpath %.c $(SRC_BONUS_DIR)
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(ALL_HEADER) -c $< -o $@
 
@@ -95,6 +103,11 @@ submodules:
 
 setup: submodules libmlx $(LIBFT)
 	@echo "Setting up Library..."
+
+bonus:
+	@$(MAKE) --no-print-directory -C . all
+	@rm -f $(OBJ_DIR)/$(SHARED_SRCS)
+	@$(MAKE) --no-print-directory -C . BONUS=1 all
 
 clean:
 	@echo "Deleting Obj files..."
@@ -119,7 +132,7 @@ fclean: clean
 	@echo "MLX42/build folder has been deleted"
 
 re:
-	@$(MAKE) --no-print-directory flclean
+	@$(MAKE) --no-print-directory fclean
 	@$(MAKE) --no-print-directory all
 
-.PHONY: all clean fclean re setup libmlx submodules
+.PHONY: all clean fclean re setup libmlx submodules bonus

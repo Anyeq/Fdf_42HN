@@ -6,13 +6,13 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 21:01:13 by asando            #+#    #+#             */
-/*   Updated: 2025/10/01 14:23:26 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/01 15:06:00 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	redraw_img(t_app *app)
+void	redraw_img(t_app *app)
 {
 	mlx_delete_image(app->mlx, app->img);
 	app->img = NULL;
@@ -26,7 +26,7 @@ static void	redraw_img(t_app *app)
 	return ;
 }
 
-static void	handle_essential(t_app *app, mlx_key_data_t keydata)
+void	handle_essential(t_app *app, mlx_key_data_t keydata)
 {
 	if (keydata.action != MLX_PRESS)
 		return ;
@@ -61,14 +61,5 @@ void	handle_resize(int32_t width, int32_t height, void *param)
 	app->cam.off_x = width / 2;
 	app->cam.off_y = height / 2;
 	ft_draw_map(app);
-	return ;
-}
-
-void	handle_key(mlx_key_data_t keydata, void *param)
-{
-	t_app	*app;
-
-	app = (t_app *)param;
-	handle_essential(app, keydata);
 	return ;
 }
