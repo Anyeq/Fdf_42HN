@@ -6,7 +6,7 @@
 #    By: asando <asando@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/19 13:48:49 by asando            #+#    #+#              #
-#    Updated: 2025/10/01 13:10:07 by asando           ###   ########.fr        #
+#    Updated: 2025/10/01 13:54:54 by asando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,13 +33,15 @@ MLX42_LIBS := -ldl -lglfw -pthread -lm
 
 # fdf src directory
 SRC_DIR := src
-SRC_GRAPH_DIR := $(SRC_DIR)/graphic_src
-SRC_PARSE_DIR := $(SRC_DIR)/parse_src
+SRC_GRAPH_DIR := $(SRC_DIR)/src_graphic
+SRC_PARSE_DIR := $(SRC_DIR)/src_parse
+SRC_BONUS_DIR := $(SRC_DIR)/src_bonus
 
 # fdf src files
 PARSE_SRCS := parse_file.c parse_file_utils.c
-GRAPHIC_SRCS := graphic_execution.c graphic_execution_function.c \
-				graphic_execution_bonus.c graphic_execution_utils.c
+BONUS_SRCS := handle_key_bonus.c \
+GRAPHIC_SRCS := graphic_draw.c graphic_draw_utils.c \
+				point_projection.c handle_key.c
 SRCS := fdf.c error_management.c
 ALL_SRCS := $(PARSE_SRCS) $(GRAPHIC_SRCS) $(SRCS)
 
@@ -73,6 +75,7 @@ $(LIBFT):
 vpath %.c $(SRC_DIR)
 vpath %.c $(SRC_GRAPH_DIR)
 vpath %.c $(SRC_PARSE_DIR)
+vpath %.c $(SRC_BONUS_DIR)
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(ALL_HEADER) -c $< -o $@
 
