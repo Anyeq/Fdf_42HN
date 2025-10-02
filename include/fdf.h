@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/10/01 15:33:43 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/02 12:33:50 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,12 @@ typedef struct s_camera
 {
 	float	zoom;
 	float	angle;
-	float	elevation;
+	float	elevation_project;
+	int		elevation_range;
+	float	fov;
+	float	cam_z;
+	float	depth;
+	bool	perspective;
 	int		off_x;
 	int		off_y;
 } t_camera;
@@ -97,6 +102,7 @@ void	exit_error(t_map_data *file_map);
 # ifdef BONUS_MODE
 	void	handle_zoom(t_app *app, mlx_key_data_t keydata);
 	void	handle_trans(t_app *app, mlx_key_data_t keydata);
+	void	handle_perspective(t_app *app, mlx_key_data_t keydata);
 # endif
 void	handle_essential(t_app *app, mlx_key_data_t keydata);
 void	handle_resize(int32_t width, int32_t height, void *param);
@@ -104,7 +110,7 @@ void	handle_key(mlx_key_data_t keydata, void *param);
 
 //graphic management
 void			redraw_img(t_app *app);
-t_point_project	ft_project(int x, int y, int z, t_camera cam);
+t_point_project	ft_project(int x, int y, int z, t_app *app);
 void			init_app(t_app *app);
 void			init_cam(t_app *app);
 void			ft_draw_map(t_app *app);

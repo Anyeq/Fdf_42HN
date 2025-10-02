@@ -6,13 +6,13 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 10:44:13 by asando            #+#    #+#             */
-/*   Updated: 2025/10/01 14:08:44 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/02 12:33:30 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static float	ft_cam_elevation(t_app *app)
+static int	ft_elevation_range(t_app *app)
 {
 	int			z_min;
 	int			z_max;
@@ -36,9 +36,7 @@ static float	ft_cam_elevation(t_app *app)
 		}
 		i++;
 	}
-	if (z_max - z_min == 0)
-		return (1.0f);
-	return (app->cam.zoom / (z_max - z_min));
+	return (z_max - z_min);
 }
 
 void	init_app(t_app *app)
@@ -56,16 +54,13 @@ void	init_app(t_app *app)
 	app->file_map = map;
 }
 
-void	init_cam(t_app *app)
+static float	ft_zoom(t_app *app)
 {
-	float	project_width;
-	float	project_height;
-	float	angle_deg;
 	float	zoomx;
 	float	zoomy;
+	float	project_width;
+	float	project_height;
 
-	angle_deg = 30.0f;
-	app->cam.angle = angle_deg * (M_PI / 180.0f);
 	project_width = (app->file_map->row_size + app->file_map->column_size)
 		* cos(app->cam.angle);
 	project_height = (app->file_map->row_size + app->file_map->column_size)
@@ -73,11 +68,24 @@ void	init_cam(t_app *app)
 	zoomx = app->mlx->width / project_width;
 	zoomy = app->mlx->height / project_height;
 	if (zoomx < zoomy)
-		app->cam.zoom = zoomx * 0.5;
+		return (zoomx * 0.5f);
+	return (zoomy * 0.5f);
+}
+
+void	init_cam(t_app *app)
+{
+	float	angle_deg;
+
+	angle_deg = 45.0f;
+	app->cam.angle = angle_deg * (M_PI / 180.0f);
+	app->cam.elevation_range = ft_elevation_range(app);
+	app->cam.zoom = ft_zoom(app);
+	if (app->cam.elevation_range == 0)
+		app->cam.elevation_project = app->cam.zoom / 1.0f;
 	else
-		app->cam.zoom = zoomy * 0.5;
-	app->cam.elevation = ft_cam_elevation(app);
+		app->cam.elevation_project = app->cam.zoom / app->cam.elevation_range;
 	app->cam.off_x = app->mlx->width / 2;
-	app->cam.off_y = app->mlx->height / 2 - (2 * zoomy);
+	app->cam.off_y = app->mlx->height / 2 - (2 * app->cam.zoom);
+	app->cam.perspective = false;
 	return ;
 }
