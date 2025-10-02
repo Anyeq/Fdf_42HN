@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 21:01:13 by asando            #+#    #+#             */
-/*   Updated: 2025/10/02 01:31:08 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/02 14:06:21 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	handle_essential(t_app *app, mlx_key_data_t keydata)
 	if (keydata.action != MLX_PRESS)
 		return ;
 	if (keydata.key == MLX_KEY_KP_ADD || keydata.key == MLX_KEY_EQUAL)
-		app->cam.elevation *= 2.0f;
+		app->cam.elevation_project *= 2.0f;
 	else if (keydata.key == MLX_KEY_KP_SUBTRACT || keydata.key == MLX_KEY_MINUS)
-		app->cam.elevation *= 0.5f;
+		app->cam.elevation_project *= 0.5f;
 	else if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
 		mlx_close_window(app->mlx);

@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 10:44:13 by asando            #+#    #+#             */
-/*   Updated: 2025/10/02 12:33:30 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/02 15:12:05 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,17 @@ static float	ft_zoom(t_app *app)
 
 void	init_cam(t_app *app)
 {
-	float	angle_deg;
+	float	map_dim;
 
-	angle_deg = 45.0f;
-	app->cam.angle = angle_deg * (M_PI / 180.0f);
+	app->cam.angle = 45.0f * (M_PI / 180.0f);
+	app->cam.pitch = 30.0f * (M_PI / 180.0f);
 	app->cam.elevation_range = ft_elevation_range(app);
-	app->cam.zoom = ft_zoom(app);
+	map_dim = app->file_map->row_size + app->file_map->column_size;
+	app->cam.zoom = ft_zoom(app) * 1.5f;
 	if (app->cam.elevation_range == 0)
-		app->cam.elevation_project = app->cam.zoom / 1.0f;
+		app->cam.elevation_project = map_dim / 1.0f;
 	else
-		app->cam.elevation_project = app->cam.zoom / app->cam.elevation_range;
+		app->cam.elevation_project = map_dim / app->cam.elevation_range;
 	app->cam.off_x = app->mlx->width / 2;
 	app->cam.off_y = app->mlx->height / 2 - (2 * app->cam.zoom);
 	app->cam.perspective = false;

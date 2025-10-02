@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 13:45:07 by asando            #+#    #+#             */
-/*   Updated: 2025/10/02 13:02:05 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/02 15:35:40 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,6 @@ static t_point_project	rotate_point(int x, int y, t_app *app)
 	return (p);
 }
 
-//t_point_project	ft_project(int x, int y, int z, t_app *app)
-//{
-//	t_point_project	p;
-//    t_point_project rot_point;
-//
-//	rot_point = rotate_point(x, y, app);
-//    p.fx = rot_point.fx * app->cam.zoom + app->cam.off_x;
-//    p.fy = rot_point.fy * app->cam.zoom - (z * app->cam.elevation)
-//		+ app->cam.off_y;
-//	p.x = (int)(p.fx);
-//	p.y = (int)(p.fy);
-//	return (p);
-//}
-
 static void	ft_set_depth(int y, t_app *app)
 {
 	int		map_dim;
@@ -58,6 +44,18 @@ static void	ft_set_depth(int y, t_app *app)
 		app->cam.depth = depth;
 }
 
+static float	ft_tilt_y(int z, t_point_project rot_point, t_app *app)
+{
+	float	fy_tiled;
+	float	z_centered;
+
+	z_centered = z - app->cam.elevation_range / 2;
+	fy_tiled = rot_point.fy * cosf(app->cam.pitch + 0.5f)
+		- z_centered * sinf(app->cam.pitch + 0.5f)
+		* app->cam.elevation_project / 2;
+	return (fy_tiled);
+}
+
 t_point_project	ft_project(int x, int y, int z, t_app *app)
 {
 	t_point_project	p;
@@ -69,14 +67,13 @@ t_point_project	ft_project(int x, int y, int z, t_app *app)
 		ft_set_depth(y, app);
 		p.fx = (rot_point.fx * app->cam.fov / app->cam.depth) * app->cam.zoom
 			+ app->cam.off_x;
-		p.fy = (rot_point.fy * app->cam.fov / app->cam.depth) * app->cam.zoom
-			- (z * app->cam.elevation_project) + app->cam.off_y;
+		p.fy = ft_tilt_y(z, rot_point, app) * (app->cam.fov / app->cam.depth)
+			* app->cam.zoom + app->cam.off_y;
 	}
 	else
 	{
 		p.fx = rot_point.fx * app->cam.zoom + app->cam.off_x;
-		p.fy = rot_point.fy * app->cam.zoom - (z * app->cam.elevation_project)
-			+ app->cam.off_y;
+		p.fy = ft_tilt_y(z, rot_point, app) * app->cam.zoom + app->cam.off_y;
 	}
 	p.x = (int)p.fx;
 	p.y = (int)p.fy;

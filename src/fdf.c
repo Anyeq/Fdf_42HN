@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:49:53 by asando            #+#    #+#             */
-/*   Updated: 2025/10/01 14:21:50 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/02 15:36:05 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ static void	graphic_exec(t_app *app)
 	ft_draw_map(app);
 	mlx_resize_hook(app->mlx, handle_resize, app);
 	mlx_key_hook(app->mlx, handle_key, app);
-	//init_mouse(app);
-	//register_hook(&app); all hook function would come here
 	mlx_loop(app->mlx);
 	mlx_terminate(app->mlx);
 }

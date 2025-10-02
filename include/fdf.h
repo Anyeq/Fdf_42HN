@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/10/02 12:33:50 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/02 21:58:54 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include "libft.h"
 # include "get_next_line_bonus.h"
 # include "MLX42/MLX42.h"
-# define WIDTH 1200
-# define HEIGHT 800
+# define WIDTH 800
+# define HEIGHT 600
 
 typedef struct s_point_data
 {
@@ -46,7 +46,6 @@ typedef struct s_point_project
 	int			y;
 	float		fx;
 	float		fy;
-	uint32_t	color;
 }	t_point_project;
 
 typedef struct s_point_delta
@@ -67,16 +66,10 @@ typedef struct s_camera
 	float	cam_z;
 	float	depth;
 	bool	perspective;
+	float	pitch;
 	int		off_x;
 	int		off_y;
-} t_camera;
-
-typedef struct t_mouse
-{
-	bool	drag;
-	int		last_x;
-	int		last_y;
-} t_mouse;
+}	t_camera;
 
 typedef struct s_app
 {
@@ -84,29 +77,32 @@ typedef struct s_app
 	mlx_image_t	*img;
 	t_map_data	*file_map;
 	t_camera	cam;
-	t_mouse		mouse;
 }	t_app;
 
 //parsing function and utils
-void	deep_free(void *content);
-void	grab_color_data(char *str, t_point_data *data);
-int		parse_file(int file_fd, t_map_data *file_map);
+void			deep_free(void *content);
+void			grab_color_data(char *str, t_point_data *data);
+int				parse_file(int file_fd, t_map_data *file_map);
 
 //fdf_utils
-void	error_check(int n_arg, char *file_path, int *fd_file, t_map_data *file_map);
-void	clean_map(t_map_data *map, uint32_t n_deep);
-void	exit_malloc_failed(t_list **raw_data, void (*del)(void *), t_map_data *file_map);
-void	exit_error(t_map_data *file_map);
+void			error_check(int n_arg, char *file_path, int *fd_file,
+					t_map_data *file_map);
+void			clean_map(t_map_data *map, uint32_t n_deep);
+void			exit_malloc_failed(t_list **raw_data, void (*del)(void *),
+					t_map_data *file_map);
+void			exit_error(t_map_data *file_map);
 
 //bonus
 # ifdef BONUS_MODE
-	void	handle_zoom(t_app *app, mlx_key_data_t keydata);
-	void	handle_trans(t_app *app, mlx_key_data_t keydata);
-	void	handle_perspective(t_app *app, mlx_key_data_t keydata);
+
+void			handle_zoom(t_app *app, mlx_key_data_t keydata);
+void			handle_trans(t_app *app, mlx_key_data_t keydata);
+void			handle_perspective(t_app *app, mlx_key_data_t keydata);
 # endif
-void	handle_essential(t_app *app, mlx_key_data_t keydata);
-void	handle_resize(int32_t width, int32_t height, void *param);
-void	handle_key(mlx_key_data_t keydata, void *param);
+
+void			handle_essential(t_app *app, mlx_key_data_t keydata);
+void			handle_resize(int32_t width, int32_t height, void *param);
+void			handle_key(mlx_key_data_t keydata, void *param);
 
 //graphic management
 void			redraw_img(t_app *app);

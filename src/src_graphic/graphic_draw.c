@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 21:04:23 by asando            #+#    #+#             */
-/*   Updated: 2025/10/01 23:55:08 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/02 21:59:27 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,9 @@ void	ft_draw_map(t_app *app)
 	uint32_t		row;
 	uint32_t		column;
 	t_point_project	p0;
-	uint32_t		color;
 
 	row = 0;
 	column = 0;
-	color = 0XFFFFFFFF;
 	while (row < app->file_map->row_size)
 	{
 		column = 0;
@@ -114,7 +112,6 @@ void	ft_draw_map(t_app *app)
 		{
 			p0 = ft_project((int)column, (int)row,
 					app->file_map->z_data[row][column].data, app);
-			p0.color = color;
 			ft_draw_topoint(column, row, p0, app);
 			column++;
 		}
