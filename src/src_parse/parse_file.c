@@ -6,26 +6,11 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 19:40:08 by asando            #+#    #+#             */
-/*   Updated: 2025/09/30 13:27:39 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/03 17:47:28 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	deep_free(void *content)
-{
-	char	**str_arr;
-	char	**curr;
-
-	str_arr = (char **)content;
-	curr = str_arr;
-	while (*curr)
-	{
-		free(*curr);
-		curr++;
-	}
-	free(str_arr);
-}
 
 static int	store_line(t_list **raw_data, char **str_arr, void (*del)(void *))
 {

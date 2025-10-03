@@ -6,7 +6,7 @@
 #    By: asando <asando@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/19 13:48:49 by asando            #+#    #+#              #
-#    Updated: 2025/10/01 16:15:59 by asando           ###   ########.fr        #
+#    Updated: 2025/10/03 18:06:08 by asando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ OBJS := $(ALL_SRCS:%.c=$(OBJ_DIR)/%.o)
 NAME := fdf
 
 all: submodules $(NAME)
-	@echo "Execution file is created"
+	@echo "fdf is created"
 
 #build execution file link all obj needed
 $(NAME): libmlx libft_setup $(OBJS)
@@ -68,14 +68,16 @@ $(NAME): libmlx libft_setup $(OBJS)
 libmlx: $(MLX42_LIB)
 
 $(MLX42_LIB):
+	@echo "Setting up MLX42..."
 	@cmake $(MLX42_DIR) -B $(MLX42_DIR)/build
-	@cmake --build $(MLX42_DIR)/build -j4
+	@cmake --build $(MLX42_DIR)/build -j4 > /dev/null
 	@echo "libmlx42.a is compiled"
 
 #compile libft
 libft_setup: $(LIBFT)
 
 $(LIBFT):
+	@echo "Setting up libft..."
 	@$(MAKE) --no-print-directory bonus -C $(LIBFT_DIR)
 	@echo "libft.a is compiled"
 
@@ -97,8 +99,7 @@ submodules:
 		[ ! -f "$(MLX42_DIR)/CMakeLists.txt" ]; then \
 		echo "Initializing Submodules..."; \
 		git submodule update --init --recursive; \
-	else \
-		echo "Submodules are already initialized."; \
+		echo "Submodules are initialized"; \
 	fi
 
 setup: submodules libmlx $(LIBFT)
@@ -127,7 +128,7 @@ fclean: clean
 	@echo "Deleting libftprintf.a file..."
 	@rm -rf $(LIBFT_DIR)/libftprintf.a
 	@echo "libftprintf.a file has been deleted"
-	@echo "Deleting libmlx_Linux.a file..."
+	@echo "Deleting MLX42/build folder..."
 	@rm -rf $(MLX42_DIR)/build
 	@echo "MLX42/build folder has been deleted"
 

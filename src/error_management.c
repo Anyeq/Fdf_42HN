@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 19:57:23 by asando            #+#    #+#             */
-/*   Updated: 2025/10/03 15:12:45 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/03 17:47:23 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,21 @@ void	error_check(int n_arg, char *file_path, int *fd_file,
 		exit(EXIT_FAILURE);
 	}
 	return ;
+}
+
+void	deep_free(void *content)
+{
+	char	**str_arr;
+	char	**curr;
+
+	str_arr = (char **)content;
+	curr = str_arr;
+	while (*curr)
+	{
+		free(*curr);
+		curr++;
+	}
+	free(str_arr);
 }
 
 void	clean_map(t_map_data *map, uint32_t n_deep)

@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/10/03 17:04:40 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/03 17:17:12 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ void			handle_resize(int32_t width, int32_t height, void *param);
 void			handle_key(mlx_key_data_t keydata, void *param);
 
 //graphic management
-void			redraw_img(t_app *app);
-t_point_project	ft_project(int x, int y, int z, t_app *app);
 void			init_app(t_app *app);
 void			init_cam(t_app *app);
+t_point_project	ft_project(int x, int y, int z, t_app *app);
+void			redraw_img(t_app *app);
 void			ft_draw_map(t_app *app);
 #endif
