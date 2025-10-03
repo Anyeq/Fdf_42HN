@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 13:45:07 by asando            #+#    #+#             */
-/*   Updated: 2025/10/02 15:35:40 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/03 14:27:44 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	ft_set_depth(int y, t_app *app)
 	int		map_dim;
 	float	depth;
 
-	map_dim = app->file_map->row_size + app->file_map->column_size;
+	map_dim = (app->file_map->row_size + app->file_map->column_size);
 	app->cam.cam_z = map_dim * 0.5f + app->cam.elevation_range * 0.5f;
 	app->cam.fov = 60.0f / logf(map_dim + 10.f);
 	depth = app->cam.cam_z - y;

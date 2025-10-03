@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 10:44:13 by asando            #+#    #+#             */
-/*   Updated: 2025/10/02 15:12:05 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/02 22:13:25 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,24 @@ static int	ft_elevation_range(t_app *app)
 	return (z_max - z_min);
 }
 
+static float	ft_zoom(t_app *app)
+{
+	float	zoomx;
+	float	zoomy;
+	float	project_width;
+	float	project_height;
+
+	project_width = (app->file_map->row_size + app->file_map->column_size)
+		* cosf(app->cam.angle);
+	project_height = (app->file_map->row_size + app->file_map->column_size)
+		* sinf(app->cam.angle);
+	zoomx = app->mlx->width / project_width;
+	zoomy = app->mlx->height / project_height;
+	if (zoomx < zoomy)
+		return (zoomx * 0.7f);
+	return (zoomy * 0.7f);
+}
+
 void	init_app(t_app *app)
 {
 	t_map_data	*map;
@@ -52,24 +70,6 @@ void	init_app(t_app *app)
 	app->mlx = NULL;
 	app->img = NULL;
 	app->file_map = map;
-}
-
-static float	ft_zoom(t_app *app)
-{
-	float	zoomx;
-	float	zoomy;
-	float	project_width;
-	float	project_height;
-
-	project_width = (app->file_map->row_size + app->file_map->column_size)
-		* cos(app->cam.angle);
-	project_height = (app->file_map->row_size + app->file_map->column_size)
-		* sin(app->cam.angle);
-	zoomx = app->mlx->width / project_width;
-	zoomy = app->mlx->height / project_height;
-	if (zoomx < zoomy)
-		return (zoomx * 0.5f);
-	return (zoomy * 0.5f);
 }
 
 void	init_cam(t_app *app)

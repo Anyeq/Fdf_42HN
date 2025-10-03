@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 13:16:19 by asando            #+#    #+#             */
-/*   Updated: 2025/10/02 12:32:47 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/03 17:02:43 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	handle_zoom(t_app *app, mlx_key_data_t keydata)
 	else
 		app->cam.elevation_project = app->cam.zoom / app->cam.elevation_range;
 	app->cam.off_x = app->mlx->width / 2;
-	app->cam.off_y = app->mlx->height / 2 - (2 * app->cam.zoom);
+	app->cam.off_y = app->mlx->height / 2;
 	redraw_img(app);
 	return ;
 }
@@ -58,6 +58,34 @@ void	handle_perspective(t_app *app, mlx_key_data_t keydata)
 		app->cam.perspective = true;
 	else if (keydata.key == MLX_KEY_N)
 		app->cam.perspective = false;
+	else
+		return ;
+	redraw_img(app);
+	return ;
+}
+
+void	handle_rotation(t_app *app, mlx_key_data_t keydata)
+{
+	if (keydata.action != MLX_PRESS)
+		return ;
+	if (keydata.key == MLX_KEY_R)
+		app->cam.angle += 0.05f;
+	else if (keydata.key == MLX_KEY_E)
+		app->cam.angle -= 0.05f;
+	else
+		return ;
+	redraw_img(app);
+	return ;
+}
+
+void	handle_tilt(t_app *app, mlx_key_data_t keydata)
+{
+	if (keydata.action != MLX_PRESS)
+		return ;
+	if (keydata.key == MLX_KEY_K)
+		app->cam.pitch += 0.05f;
+	else if (keydata.key == MLX_KEY_L)
+		app->cam.pitch -= 0.05f;
 	else
 		return ;
 	redraw_img(app);

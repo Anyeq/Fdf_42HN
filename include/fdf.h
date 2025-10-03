@@ -6,7 +6,7 @@
 /*   By: asando <asando@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:50:35 by asando            #+#    #+#             */
-/*   Updated: 2025/10/02 21:58:54 by asando           ###   ########.fr       */
+/*   Updated: 2025/10/03 17:04:40 by asando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ void			exit_error(t_map_data *file_map);
 void			handle_zoom(t_app *app, mlx_key_data_t keydata);
 void			handle_trans(t_app *app, mlx_key_data_t keydata);
 void			handle_perspective(t_app *app, mlx_key_data_t keydata);
+void			handle_rotation(t_app *app, mlx_key_data_t keydata);
+void			handle_tilt(t_app *app, mlx_key_data_t keydata);
 # endif
 
 void			handle_essential(t_app *app, mlx_key_data_t keydata);
